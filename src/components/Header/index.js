@@ -1,16 +1,12 @@
 import React from "react";
-import CartBody from "./CartBody";
 import TopBar from "./TopBar";
-import LogoArea from "./LogoArea";
-import Menu from "./Menu.jsx";
+import MenuArea from "./MenuArea";
 
 const Header = () => {
   return (
     <>
       <TopBar />
-      <LogoArea />
-      <CartBody />
-      <Menu />
+      <MenuArea />
     </>
   );
 };

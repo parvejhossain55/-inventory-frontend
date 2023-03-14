@@ -1,8 +1,5 @@
 import React from "react";
-import england from "../../assets/images/fl-eng.png";
-import france from "../../assets/images/fl-fra.png";
-import germany from "../../assets/images/fl-ger.png";
-import brazil from "../../assets/images/fl-bra.png";
+import { Link } from "react-router-dom";
 
 const TopBar = () => {
   return (
@@ -10,70 +7,51 @@ const TopBar = () => {
       <section className="top-bar">
         <div className="container">
           <div className="row">
-            <div className="col-lg-6 col-md-4">
+            <div className="col-lg-4 col-md-3">
               <div className="top-left d-flex">
-                <div className="lang-box">
-                  <span>
-                    <img src={england} alt="england" />
-                    English<i className="fa fa-angle-down"></i>
-                  </span>
-                  <ul className="list-unstyled">
-                    <li>
-                      <img src={england} alt="england" />
-                      English
-                    </li>
-                    <li>
-                      <img src={france} alt="france" />
-                      French
-                    </li>
-                    <li>
-                      <img src={germany} alt="germany" />
-                      German
-                    </li>
-                    <li>
-                      <img src={brazil} alt="brazil" />
-                      Brazilian
-                    </li>
-                  </ul>
-                </div>
-                <div className="mny-box">
-                  <span>
-                    USD<i className="fa fa-angle-down"></i>
-                  </span>
-                  <ul className="list-unstyled">
-                    <li>USD</li>
-                    <li>GBP</li>
-                    <li>EUR</li>
-                  </ul>
+                <div class="call-us">
+                  <p>
+                    <i className="fa fa-regular fa-phone" style={{marginRight: "5px"}}></i>
+                    +880 1303027603
+                  </p>
                 </div>
               </div>
             </div>
-            <div className="col-lg-6 col-md-8">
-              <div className="top-right" style={{textAlign: "right"}}>
+            <div className="col-lg-8 col-md-9">
+              <div className="top-right" style={{ textAlign: "right" }}>
                 <ul className="list-unstyled list-inline">
                   <li className="list-inline-item">
-                    <a href="#">
-                      <img src="images/user.png" alt="" />
+                    <Link to="track-order">
+                      <i class="fa fa-light fa-truck"></i>
+                      Track My Order
+                    </Link>
+                  </li>
+                  <li className="list-inline-item">
+                    <Link to="login">
+                      <i
+                        class="fa fa-light fa-lock"
+                        style={{ fontSize: "16px" }}
+                      ></i>
                       My Account
-                    </a>
+                    </Link>
                   </li>
                   <li className="list-inline-item">
-                    <a href="#">
-                      <img src="images/wishlist.png" alt="" />
+                    <Link to="wishlist">
+                      <i class="fa fa-light fa-heart"></i>
                       Wishlist
-                    </a>
+                    </Link>
                   </li>
                   <li className="list-inline-item">
-                    <a href="#">
-                      <img src="images/checkout.png" alt="" />
+                    <Link to="checkout">
+                      <i class="fa fa-light fa-share"></i>
                       Checkout
-                    </a>
+                    </Link>
                   </li>
                   <li className="list-inline-item">
-                    <a href="#">
-                      <img src="images/login.png" alt="" />
-                      Login
-                    </a>
+                    <Link to="register">
+                      <i class="fa fa-light fa-user"></i>
+                      Register
+                    </Link>
                   </li>
                 </ul>
               </div>

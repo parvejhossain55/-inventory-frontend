@@ -2,73 +2,94 @@ import { createBrowserRouter, Outlet } from "react-router-dom";
 import Shop from "../components/Shop";
 import Home from "../components/Home";
 import Layout from "../components/Layout";
-
+import SingleProduct, {
+  loader as singleProductLoader,
+} from "../components/SingleProduct";
+import Cart from "../components/Cart";
+import Checkout from "../components/Checkout";
+import Wishlist from "../components/Wishlist";
+import Compare from "../components/Compare";
+import TrackOrder from "../components/TrackOrder";
+import NotFound from "../pages/NotFound";
+import About from "../components/About";
+import Contact from "../pages/Contact";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
+import Loader from "../components/Loader";
+import PrivetRoute from "./PriveRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
-    errorElement: <div>There are some error</div>,
+    errorElement: <NotFound />,
     children: [
       {
         index: true,
-        element: <Home/>,
+        element: <Home />,
         loader: () => null,
       },
       {
         path: "/shop",
-        element: <Shop/>,
+        element: <Shop />,
         loader: () => null,
       },
       {
-        path: "/about",
-        element: <div>About Page</div>,
-        loader: () => null,
+        path: "/loader",
+        element: <Loader />,
       },
       {
-        path: "/contact",
-        element: <div>Contact Page</div>,
+        path: "/product/:slug",
+        element: <SingleProduct />,
+        loader: singleProductLoader,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
         loader: () => null,
         action: () => null,
       },
       {
-        path: "/product",
-        element: <div>Product Page</div>,
+        path: "/checkout",
+        element: <Checkout />,
         loader: () => null,
         action: () => null,
       },
       {
         path: "/wishlist",
-        element: <div>Wishlist Page</div>,
+        element: <Wishlist />,
         loader: () => null,
         action: () => null,
       },
       {
         path: "/compare",
-        element: <div>Compare Page</div>,
+        element: <Compare />,
         loader: () => null,
       },
       {
-        path: "/checkout",
-        element: <div>Checkout Page</div>,
+        path: "/track-order",
+        element: <TrackOrder />,
         loader: () => null,
-        action: () => null,
       },
       {
-        path: "/cart",
-        element: <div>Cart Page</div>,
+        path: "/about",
+        element: <About />,
+        loader: () => null,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
         loader: () => null,
         action: () => null,
       },
       {
         path: "/login",
-        element: <div>Login Page</div>,
+        element: <Login />,
         action: () => null,
       },
       {
         path: "/register",
-        element: <div>Register Page</div>,
-        action: () => null,
+        element: <Register />,
       },
       {
         path: "/faq",
@@ -79,11 +100,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: (
-      <div>
-        Dashboard / check authentication <Outlet />
-      </div>
-    ),
+    element: <PrivetRoute/>,
     errorElement: <div>There are some error</div>,
     children: [
       {

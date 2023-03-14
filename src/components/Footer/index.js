@@ -4,180 +4,180 @@ import payment from "../../assets/images/payment.png"
 const Footer = () => {
   return (
     <>
-      <section class="footer-top">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-3">
-              <div class="f-contact">
+      <section className="footer-top">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-3">
+              <div className="f-contact">
                 <h5>Contact Info</h5>
-                <div class="f-add">
-                  <i class="fa fa-map-marker"></i>
+                <div className="f-add">
+                  <i className="fa fa-map-marker"></i>
                   <span>Address :</span>
                   <p>795 South Park Avenue, New York, NY USA 94107</p>
                 </div>
-                <div class="f-email">
-                  <i class="fa fa-envelope"></i>
+                <div className="f-email">
+                  <i className="fa fa-envelope"></i>
                   <span>Email :</span>
                   <p>enquery@domain.com</p>
                 </div>
-                <div class="f-phn">
-                  <i class="fa fa-phone"></i>
+                <div className="f-phn">
+                  <i className="fa fa-phone"></i>
                   <span>Phone :</span>
                   <p>+1 908 875 7678</p>
                 </div>
-                <div class="f-social">
-                  <ul class="list-unstyled list-inline">
-                    <li class="list-inline-item">
+                <div className="f-social">
+                  <ul className="list-unstyled list-inline">
+                    <li className="list-inline-item">
                       <a href="#">
-                        <i class="fa fa-facebook"></i>
+                        <i className="fa fa-facebook"></i>
                       </a>
                     </li>
-                    <li class="list-inline-item">
+                    <li className="list-inline-item">
                       <a href="#">
-                        <i class="fa fa-twitter"></i>
+                        <i className="fa fa-twitter"></i>
                       </a>
                     </li>
-                    <li class="list-inline-item">
+                    <li className="list-inline-item">
                       <a href="#">
-                        <i class="fa fa-linkedin"></i>
+                        <i className="fa fa-linkedin"></i>
                       </a>
                     </li>
-                    <li class="list-inline-item">
+                    <li className="list-inline-item">
                       <a href="#">
-                        <i class="fa fa-google-plus"></i>
+                        <i className="fa fa-google-plus"></i>
                       </a>
                     </li>
-                    <li class="list-inline-item">
+                    <li className="list-inline-item">
                       <a href="#">
-                        <i class="fa fa-pinterest"></i>
+                        <i className="fa fa-pinterest"></i>
                       </a>
                     </li>
                   </ul>
                 </div>
               </div>
             </div>
-            <div class="col-md-3">
-              <div class="f-cat">
+            <div className="col-md-3">
+              <div className="f-cat">
                 <h5>Categories</h5>
-                <ul class="list-unstyled">
+                <ul className="list-unstyled">
                   <li>
                     <a href="#">
-                      <i class="fa fa-angle-right"></i>Clothing
+                      <i className="fa fa-angle-right"></i>Clothing
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <i class="fa fa-angle-right"></i>Electronics
+                      <i className="fa fa-angle-right"></i>Electronics
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <i class="fa fa-angle-right"></i>Smartphones & Tablets
+                      <i className="fa fa-angle-right"></i>Smartphones & Tablets
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <i class="fa fa-angle-right"></i>Computer & Office
+                      <i className="fa fa-angle-right"></i>Computer & Office
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <i class="fa fa-angle-right"></i>Home Appliances
+                      <i className="fa fa-angle-right"></i>Home Appliances
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <i class="fa fa-angle-right"></i>Leather & Shoes
+                      <i className="fa fa-angle-right"></i>Leather & Shoes
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <i class="fa fa-angle-right"></i>Kids & Babies
+                      <i className="fa fa-angle-right"></i>Kids & Babies
                     </a>
                   </li>
                 </ul>
               </div>
             </div>
-            <div class="col-md-3">
-              <div class="f-link">
+            <div className="col-md-3">
+              <div className="f-link">
                 <h5>Quick Links</h5>
-                <ul class="list-unstyled">
+                <ul className="list-unstyled">
                   <li>
                     <a href="#">
-                      <i class="fa fa-angle-right"></i>My Account
+                      <i className="fa fa-angle-right"></i>My Account
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <i class="fa fa-angle-right"></i>Shopping Cart
+                      <i className="fa fa-angle-right"></i>Shopping Cart
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <i class="fa fa-angle-right"></i>My Wishlist
+                      <i className="fa fa-angle-right"></i>My Wishlist
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <i class="fa fa-angle-right"></i>Checkout
+                      <i className="fa fa-angle-right"></i>Checkout
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <i class="fa fa-angle-right"></i>Order History
+                      <i className="fa fa-angle-right"></i>Order History
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <i class="fa fa-angle-right"></i>Log In
+                      <i className="fa fa-angle-right"></i>Log In
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <i class="fa fa-angle-right"></i>Our Locations
+                      <i className="fa fa-angle-right"></i>Our Locations
                     </a>
                   </li>
                 </ul>
               </div>
             </div>
-            <div class="col-md-3">
-              <div class="f-sup">
+            <div className="col-md-3">
+              <div className="f-sup">
                 <h5>Support</h5>
-                <ul class="list-unstyled">
+                <ul className="list-unstyled">
                   <li>
                     <a href="#">
-                      <i class="fa fa-angle-right"></i>Contact Us
+                      <i className="fa fa-angle-right"></i>Contact Us
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <i class="fa fa-angle-right"></i>Payment Policy
+                      <i className="fa fa-angle-right"></i>Payment Policy
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <i class="fa fa-angle-right"></i>Return Policy
+                      <i className="fa fa-angle-right"></i>Return Policy
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <i class="fa fa-angle-right"></i>Privacy Policy
+                      <i className="fa fa-angle-right"></i>Privacy Policy
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <i class="fa fa-angle-right"></i>Frequently asked
+                      <i className="fa fa-angle-right"></i>Frequently asked
                       questions
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <i class="fa fa-angle-right"></i>Terms & Condition
+                      <i className="fa fa-angle-right"></i>Terms & Condition
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <i class="fa fa-angle-right"></i>Delivery Info
+                      <i className="fa fa-angle-right"></i>Delivery Info
                     </a>
                   </li>
                 </ul>
@@ -186,25 +186,25 @@ const Footer = () => {
           </div>
         </div>
       </section>
-      <section class="footer-btm">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-6">
+      <section className="footer-btm">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6">
               <p>
                 Copyright &copy; 2020 | Designed With
-                <i class="fa fa-heart"></i> by
+                <i className="fa fa-heart"></i> by
                 <a href="#" target="_blank">
                   SnazzyTheme
                 </a>
               </p>
             </div>
-            <div class="col-md-6 text-right">
-              <img src={payment} alt="" class="img-fluid" />
+            <div className="col-md-6 text-right">
+              <img src={payment} alt="" className="img-fluid" />
             </div>
           </div>
         </div>
-        <div class="back-to-top text-center">
-          <img src="images/backtotop.png" alt="" class="img-fluid" />
+        <div className="back-to-top text-center">
+          <img src="images/backtotop.png" alt="" className="img-fluid" />
         </div>
       </section>
     </>
