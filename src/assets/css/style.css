@@ -296,6 +296,12 @@ textarea:focus {
   }
 }
 
+/* taka symbol design */
+.taka {
+  font-size: 15px;
+  margin-right: 2px;
+}
+
 /* =======================================
 02. Top Bar
 ======================================= */
@@ -559,6 +565,20 @@ textarea:focus {
   border-radius: 50%;
 }
 
+.notfoundtext {
+  color: #5677fc;
+  font-weight: 600;
+}
+
+/* input range slider color */
+.input-range__slider {
+  background: #5677fc !important;
+  border: none !important;
+}
+.input-range__track--active {
+  background: #5677fc !important;
+}
+
 /* =======================================
 05. Product Grid
 ======================================= */
@@ -693,6 +713,192 @@ textarea:focus {
   .product-grid {
     margin: 0 0 30px;
   }
+}
+
+/* Reveiw Style */
+.sg-product .sg-tab ul.nav li.nav-item button {
+  font-size: 16px;
+  color: #444444;
+  border: none;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0;
+  padding-right: 28px;
+  background: #fff;
+}
+
+.sg-product .sg-tab ul.nav li.nav-item button.active {
+  color: #5677fc;
+}
+
+.sg-product .sg-content .colo-siz .pro-btns a.fav-com:hover {
+  border-color: #e45151;
+}
+
+.sg-product .sg-tab {
+  margin: 50px 0;
+}
+
+.sg-product .sg-tab ul.nav {
+  border-bottom: 1px solid #eeeeee;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.sg-product .sg-tab ul.nav li.nav-item a {
+  font-size: 16px;
+  color: #444444;
+  border: none;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0;
+  padding-right: 28px;
+}
+
+.sg-product .sg-tab ul.nav li.nav-item a.active {
+  color: #5677fc;
+}
+
+.sg-product .sg-tab .tab-content .tab-pane#pro-det p {
+  font-size: 15px;
+  color: #666666;
+  line-height: 27px;
+}
+
+.sg-product .sg-tab .tab-content .tab-pane {
+  margin-top: 40px;
+}
+
+.sg-product .sg-tab .tab-content .tab-pane .review-box {
+  margin-bottom: 20px;
+}
+
+.sg-product .sg-tab .tab-content .tab-pane .review-box .rv-img img {
+  max-width: 80px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.sg-product .sg-tab .tab-content .tab-pane .review-box .rv-content {
+  border: 1px solid #e5e5e5;
+  padding: 20px;
+}
+
+.sg-product .sg-tab .tab-content .tab-pane .review-box .rv-content h6 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #444444;
+  margin-bottom: 5px;
+}
+
+.sg-product .sg-tab .tab-content .tab-pane .review-box .rv-content h6 span {
+  font-size: 13px;
+  color: #969696;
+  font-weight: normal;
+  margin-left: 20px;
+}
+
+.sg-product .sg-tab .tab-content .tab-pane .review-box .rv-content ul li {
+  font-size: 13px;
+  color: #fdba2d;
+  margin-right: 0;
+}
+
+.sg-product .sg-tab .tab-content .tab-pane .review-box .rv-content p {
+  font-size: 15px;
+  color: #969696;
+  line-height: 25px;
+}
+
+.sg-product .sg-tab .tab-content .tab-pane .review-form {
+  margin-top: 60px;
+}
+
+.sg-product .sg-tab .tab-content .tab-pane .review-form h6 {
+  color: #444444;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.sg-product .sg-tab .tab-content .tab-pane .review-form form .star-rating {
+  margin-bottom: 18px;
+}
+
+.sg-product .sg-tab .tab-content .tab-pane .review-form form .star-rating span {
+  font-size: 18px;
+  color: #fdba2d;
+  cursor: pointer;
+  margin-right: 4px;
+}
+
+.sg-product .sg-tab .tab-content .tab-pane .review-form form label {
+  font-size: 15px;
+  color: #969696;
+  font-weight: 600;
+  display: block;
+}
+
+.sg-product .sg-tab .tab-content .tab-pane .review-form form input {
+  border: 1px solid #dddddd;
+  width: 100%;
+  height: 45px;
+  padding-left: 15px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  border-radius: 30px;
+  margin-bottom: 20px;
+}
+
+.sg-product .sg-tab .tab-content .tab-pane .review-form form input:focus {
+  border-color: #5677fc;
+}
+
+.sg-product .sg-tab .tab-content .tab-pane .review-form form textarea {
+  border: 1px solid #dddddd;
+  width: 100%;
+  height: 130px;
+  padding: 15px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  border-radius: 30px;
+  margin-bottom: 20px;
+}
+
+.sg-product .sg-tab .tab-content .tab-pane .review-form form textarea:focus {
+  border-color: #5677fc;
+}
+
+.sg-product .sg-tab .tab-content .tab-pane .review-form form button {
+  font-size: 15px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 600;
+  background: #e45151;
+  border: none;
+  padding: 10px 25px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  border-radius: 30px;
+}
+
+.sg-product .sg-tab .tab-content .tab-pane .review-form form button:hover {
+  background: #5677fc;
+}
+
+/* Admin Css */
+.nav-sidebar > .nav-item .nav-icon {
+  margin-left: 0.05rem;
+  font-size: 1.2rem;
+  margin-right: 0.4rem;
+  text-align: center;
+  width: 1.6rem;
 }
 
 /* =======================================
@@ -6788,175 +6994,6 @@ textarea:focus {
   border-color: #e45151;
 }
 
-.sg-product .sg-tab {
-  margin: 50px 0;
-}
-
-.sg-product .sg-tab ul.nav {
-  border-bottom: 1px solid #eeeeee;
-  padding-bottom: 10px;
-  margin-bottom: 15px;
-}
-
-.sg-product .sg-tab ul.nav li.nav-item a {
-  font-size: 16px;
-  color: #444444;
-  border: none;
-  text-transform: uppercase;
-  font-weight: 600;
-  padding: 0;
-  padding-right: 28px;
-}
-
-.sg-product .sg-tab ul.nav li.nav-item a.active {
-  color: #5677fc;
-}
-
-.sg-product .sg-tab .tab-content .tab-pane#pro-det p {
-  font-size: 15px;
-  color: #666666;
-  line-height: 27px;
-}
-
-.sg-product .sg-tab .tab-content .tab-pane#rev {
-  margin-top: 40px;
-}
-
-.sg-product .sg-tab .tab-content .tab-pane#rev .review-box {
-  margin-bottom: 20px;
-}
-
-.sg-product .sg-tab .tab-content .tab-pane#rev .review-box .rv-img img {
-  max-width: 80px;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  border-radius: 50%;
-  margin-right: 20px;
-}
-
-.sg-product .sg-tab .tab-content .tab-pane#rev .review-box .rv-content {
-  border: 1px solid #e5e5e5;
-  padding: 20px;
-}
-
-.sg-product .sg-tab .tab-content .tab-pane#rev .review-box .rv-content h6 {
-  font-size: 14px;
-  font-weight: 600;
-  color: #444444;
-  margin-bottom: 5px;
-}
-
-.sg-product .sg-tab .tab-content .tab-pane#rev .review-box .rv-content h6 span {
-  font-size: 13px;
-  color: #969696;
-  font-weight: normal;
-  margin-left: 20px;
-}
-
-.sg-product .sg-tab .tab-content .tab-pane#rev .review-box .rv-content ul li {
-  font-size: 13px;
-  color: #fdba2d;
-  margin-right: 0;
-}
-
-.sg-product .sg-tab .tab-content .tab-pane#rev .review-box .rv-content p {
-  font-size: 15px;
-  color: #969696;
-  line-height: 25px;
-}
-
-.sg-product .sg-tab .tab-content .tab-pane#rev .review-form {
-  margin-top: 60px;
-}
-
-.sg-product .sg-tab .tab-content .tab-pane#rev .review-form h6 {
-  color: #444444;
-  text-transform: uppercase;
-  font-weight: 600;
-  margin-bottom: 20px;
-}
-
-.sg-product .sg-tab .tab-content .tab-pane#rev .review-form form .star-rating {
-  margin-bottom: 18px;
-}
-
-.sg-product
-  .sg-tab
-  .tab-content
-  .tab-pane#rev
-  .review-form
-  form
-  .star-rating
-  span {
-  font-size: 18px;
-  color: #fdba2d;
-  cursor: pointer;
-}
-
-.sg-product .sg-tab .tab-content .tab-pane#rev .review-form form label {
-  font-size: 15px;
-  color: #969696;
-  font-weight: 600;
-  display: block;
-}
-
-.sg-product .sg-tab .tab-content .tab-pane#rev .review-form form input {
-  border: 1px solid #dddddd;
-  width: 100%;
-  height: 45px;
-  padding-left: 15px;
-  -webkit-border-radius: 30px;
-  -moz-border-radius: 30px;
-  -ms-border-radius: 30px;
-  border-radius: 30px;
-  margin-bottom: 20px;
-}
-
-.sg-product .sg-tab .tab-content .tab-pane#rev .review-form form input:focus {
-  border-color: #5677fc;
-}
-
-.sg-product .sg-tab .tab-content .tab-pane#rev .review-form form textarea {
-  border: 1px solid #dddddd;
-  width: 100%;
-  height: 130px;
-  padding: 15px;
-  -webkit-border-radius: 30px;
-  -moz-border-radius: 30px;
-  -ms-border-radius: 30px;
-  border-radius: 30px;
-  margin-bottom: 20px;
-}
-
-.sg-product
-  .sg-tab
-  .tab-content
-  .tab-pane#rev
-  .review-form
-  form
-  textarea:focus {
-  border-color: #5677fc;
-}
-
-.sg-product .sg-tab .tab-content .tab-pane#rev .review-form form button {
-  font-size: 15px;
-  color: #fff;
-  text-transform: uppercase;
-  font-weight: 600;
-  background: #e45151;
-  border: none;
-  padding: 10px 25px;
-  -webkit-border-radius: 30px;
-  -moz-border-radius: 30px;
-  -ms-border-radius: 30px;
-  border-radius: 30px;
-}
-
-.sg-product .sg-tab .tab-content .tab-pane#rev .review-form form button:hover {
-  background: #5677fc;
-}
-
 .sg-product .sim-pro .sec-title h5 {
   color: #444444;
   text-transform: uppercase;
@@ -8105,6 +8142,7 @@ textarea:focus {
   padding-bottom: 10px;
 }
 
+.checkout .order-review .review-box ul li:nth-child(4),
 .checkout .order-review .review-box ul li:nth-child(5) {
   font-size: 16px;
   color: #666666;
@@ -8115,7 +8153,8 @@ textarea:focus {
   font-weight: 600;
 }
 
-.checkout .order-review .review-box ul li:nth-child(5) span {
+.checkout .order-review .review-box ul li:nth-child(5) span,
+.checkout .order-review .review-box ul li:nth-child(4) span {
   float: right;
 }
 

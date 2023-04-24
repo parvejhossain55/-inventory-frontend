@@ -1,245 +1,110 @@
-import React from 'react'
-import sabr from "../../assets/images/sbar-3.png";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { addToCart, loadWishlistData, removeWishlistData } from "../../apiRequest";
+import { useGlobalContext } from "../../context/gobalContext";
 
 const Wishlist = () => {
+  const [wishlist, setWishlist] = useState([]);
+    const { checkCountCart } = useGlobalContext();
+
+  useEffect(() => {
+    loadWishlist();
+  }, []);
+
+  const loadWishlist = async () => {
+    const data = await loadWishlistData();
+    setWishlist(data);
+  };
+
+  const removeWishlist = async (productId) => {
+    await removeWishlistData(productId);
+    await loadWishlist();
+  };
+
+  const addToCartItem = async (productId) => {
+    await addToCart(productId);
+    checkCountCart()
+  } 
+
   return (
     <>
-      <section class="shopping-cart">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="cart-table wsh-list table-responsive">
-                <table class="table">
+      <section className="shopping-cart">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="cart-table wsh-list table-responsive">
+                <table className="table">
                   <thead>
                     <tr>
-                      <th class="t-pro">Product</th>
-                      <th class="t-price">Price</th>
-                      <th class="t-qty">Stock</th>
-                      <th class="t-total">Add To Cart</th>
-                      <th class="t-rem"></th>
+                      <th className="t-pro">Product</th>
+                      <th className="t-price">Price</th>
+                      <th className="t-qty">Stock</th>
+                      <th className="t-total">Add To Cart</th>
+                      <th className="t-rem">Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td class="t-pro d-flex">
-                        <div class="t-img">
-                          <a href="#">
-                            <img src={sabr} alt="" />
-                          </a>
-                        </div>
-                        <div class="t-content">
-                          <p class="t-heading">
-                            <a href="#">Samsung Smart Led Tv</a>
-                          </p>
-                          <ul class="list-unstyled list-inline rate">
-                            <li class="list-inline-item">
-                              <i class="fa fa-star"></i>
-                            </li>
-                            <li class="list-inline-item">
-                              <i class="fa fa-star"></i>
-                            </li>
-                            <li class="list-inline-item">
-                              <i class="fa fa-star"></i>
-                            </li>
-                            <li class="list-inline-item">
-                              <i class="fa fa-star"></i>
-                            </li>
-                            <li class="list-inline-item">
-                              <i class="fa fa-star-o"></i>
-                            </li>
-                          </ul>
-                          <ul class="list-unstyled col-sz">
-                            <li>
-                              <p>
-                                Color : <span>Red</span>
+                    {wishlist.length > 0 ? (
+                      wishlist.map((item) => (
+                        <tr>
+                          <td className="t-pro d-flex">
+                            <div className="t-img">
+                              <Link to={`/product/${item.product.slug}`}>
+                                <img
+                                  src={`${process.env.REACT_APP_IMAGE_URL}/${item.product?.images[0]}`}
+                                  width={100}
+                                  height={100}
+                                  alt={item.product.title}
+                                />
+                              </Link>
+                            </div>
+                            <div className="t-content">
+                              <p className="t-heading py-5">
+                                <Link to={`/product/${item.product.slug}`}>
+                                  {item.product.title}
+                                </Link>
                               </p>
-                            </li>
-                            <li>
-                              <p>
-                                Size : <span>M</span>
-                              </p>
-                            </li>
-                          </ul>
-                        </div>
-                      </td>
-                      <td class="t-price">$189.00</td>
-                      <td class="t-stk">In Stock</td>
-                      <td class="t-add">
-                        <button type="button" name="button">
-                          Add to Cart
-                        </button>
-                      </td>
-                      <td class="t-rem">
-                        <a href="#">
-                          <i class="fa fa-trash-o"></i>
-                        </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="t-pro d-flex">
-                        <div class="t-img">
-                          <a href="#">
-                            <img src={sabr} alt="" />
-                          </a>
-                        </div>
-                        <div class="t-content">
-                          <p class="t-heading">
-                            <a href="#">Samsung Smart Led Tv</a>
-                          </p>
-                          <ul class="list-unstyled list-inline rate">
-                            <li class="list-inline-item">
-                              <i class="fa fa-star"></i>
-                            </li>
-                            <li class="list-inline-item">
-                              <i class="fa fa-star"></i>
-                            </li>
-                            <li class="list-inline-item">
-                              <i class="fa fa-star"></i>
-                            </li>
-                            <li class="list-inline-item">
-                              <i class="fa fa-star"></i>
-                            </li>
-                            <li class="list-inline-item">
-                              <i class="fa fa-star-o"></i>
-                            </li>
-                          </ul>
-                          <ul class="list-unstyled col-sz">
-                            <li>
-                              <p>
-                                Color : <span>Green</span>
-                              </p>
-                            </li>
-                            <li>
-                              <p>
-                                Size : <span>M</span>
-                              </p>
-                            </li>
-                          </ul>
-                        </div>
-                      </td>
-                      <td class="t-price">$129.00</td>
-                      <td class="t-stk">In Stock</td>
-                      <td class="t-add">
-                        <button type="button" name="button">
-                          Add to Cart
-                        </button>
-                      </td>
-                      <td class="t-rem">
-                        <a href="#">
-                          <i class="fa fa-trash-o"></i>
-                        </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="t-pro d-flex">
-                        <div class="t-img">
-                          <a href="#">
-                            <img src={sabr} alt="" />
-                          </a>
-                        </div>
-                        <div class="t-content">
-                          <p class="t-heading">
-                            <a href="#">Samsung Smart Led Tv</a>
-                          </p>
-                          <ul class="list-unstyled list-inline rate">
-                            <li class="list-inline-item">
-                              <i class="fa fa-star"></i>
-                            </li>
-                            <li class="list-inline-item">
-                              <i class="fa fa-star"></i>
-                            </li>
-                            <li class="list-inline-item">
-                              <i class="fa fa-star"></i>
-                            </li>
-                            <li class="list-inline-item">
-                              <i class="fa fa-star"></i>
-                            </li>
-                            <li class="list-inline-item">
-                              <i class="fa fa-star-o"></i>
-                            </li>
-                          </ul>
-                          <ul class="list-unstyled col-sz">
-                            <li>
-                              <p>
-                                Color : <span>Grey</span>
-                              </p>
-                            </li>
-                            <li>
-                              <p>
-                                Size : <span>M</span>
-                              </p>
-                            </li>
-                          </ul>
-                        </div>
-                      </td>
-                      <td class="t-price">$239.00</td>
-                      <td class="t-stk">In Stock</td>
-                      <td class="t-add">
-                        <button type="button" name="button">
-                          Add to Cart
-                        </button>
-                      </td>
-                      <td class="t-rem">
-                        <a href="#">
-                          <i class="fa fa-trash-o"></i>
-                        </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="t-pro d-flex">
-                        <div class="t-img">
-                          <a href="#">
-                            <img src={sabr} alt="" />
-                          </a>
-                        </div>
-                        <div class="t-content">
-                          <p class="t-heading">
-                            <a href="#">Samsung Smart Led Tv</a>
-                          </p>
-                          <ul class="list-unstyled list-inline rate">
-                            <li class="list-inline-item">
-                              <i class="fa fa-star"></i>
-                            </li>
-                            <li class="list-inline-item">
-                              <i class="fa fa-star"></i>
-                            </li>
-                            <li class="list-inline-item">
-                              <i class="fa fa-star"></i>
-                            </li>
-                            <li class="list-inline-item">
-                              <i class="fa fa-star"></i>
-                            </li>
-                            <li class="list-inline-item">
-                              <i class="fa fa-star-o"></i>
-                            </li>
-                          </ul>
-                          <ul class="list-unstyled col-sz">
-                            <li>
-                              <p>
-                                Color : <span>Blue</span>
-                              </p>
-                            </li>
-                            <li>
-                              <p>
-                                Size : <span>M</span>
-                              </p>
-                            </li>
-                          </ul>
-                        </div>
-                      </td>
-                      <td class="t-price">$149.00</td>
-                      <td class="t-stk">In Stock</td>
-                      <td class="t-add">
-                        <button type="button" name="button">
-                          Add to Cart
-                        </button>
-                      </td>
-                      <td class="t-rem">
-                        <a href="#">
-                          <i class="fa fa-trash-o"></i>
-                        </a>
-                      </td>
-                    </tr>
+                            </div>
+                          </td>
+                          <td className="t-price">
+                            {
+                              <span
+                                style={{ fontSize: "16px", marginRight: "2px" }}
+                              >
+                                ৳
+                              </span>
+                            }
+                            {item.product.price}
+                          </td>
+                          <td className="t-stk">
+                            {item.product.quantity > 0
+                              ? "In Stock"
+                              : "Out of Stock"}
+                          </td>
+                          <td className="t-add">
+                            <button
+                              type="button"
+                              onClick={() => addToCartItem(item.product._id)}
+                            >
+                              Add to Cart
+                            </button>
+                          </td>
+                          <td className="t-rem">
+                            <Link
+                              onClick={() => removeWishlist(item.product._id)}
+                            >
+                              <i className="fa fa-trash-o"></i>
+                            </Link>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <>
+                        <h6 className="text-center mt-3 notfoundtext">
+                          No Item Found in Your Wishlist
+                        </h6>
+                      </>
+                    )}
                   </tbody>
                 </table>
               </div>
@@ -249,6 +114,6 @@ const Wishlist = () => {
       </section>
     </>
   );
-}
+};
 
-export default Wishlist
+export default Wishlist;

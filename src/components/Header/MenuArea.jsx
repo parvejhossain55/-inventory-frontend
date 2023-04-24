@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from "react";
 import logo from "../../assets/images/logo.png";
 import cart from "../../assets/images/cart.png";
-import { Link } from "react-router-dom";
-import { cartCount } from "../../helper/cartHelper";
+import { Link, useNavigate } from "react-router-dom";
+import { loadCart } from "../../apiRequest";
+import { useGlobalContext } from "../../context/gobalContext";
 
 const LogoArea = () => {
-  
+  const navigate = useNavigate();
+  const { countCart } = useGlobalContext();
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const search = formData.get("search");
+    navigate("/search", { state: search });
+  };
+
   return (
     <>
       <section className="logo-area">
@@ -31,10 +41,10 @@ const LogoArea = () => {
               </div>
             </div>
             <div className="col-md-5 mb-5">
-              <form action="" className="search-bar">
+              <form onSubmit={handleSearch} className="search-bar">
                 <input
                   type="text"
-                  name="search-bar"
+                  name="search"
                   placeholder="I'm looking for..."
                 />
                 <button type="submit">
@@ -46,9 +56,8 @@ const LogoArea = () => {
               <div className="carts-btn text-center mt-4">
                 <Link to="cart" className="cart-btn">
                   <img src={cart} alt="cart" />
-                  {/* <i class="fa fa-shopping-cart" style={{fontSize: "30px"}}></i> */}
                   <span className="translate-middle badge rounded-pill">
-                    {0}
+                    {countCart}
                   </span>
                 </Link>
               </div>

@@ -1,32 +1,26 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
+import { addToCart, addToWishlist, loadProductBySlug } from "../../apiRequest";
 import tab1 from "../../assets/images/tab-1.png";
+import { useGlobalContext } from "../../context/gobalContext";
 import useApi from "../../hooks/useApi";
 import ProductCard from "../Card/ProductCard";
-import { addToCart, addToWishlist } from "../../helper/cartHelper";
+import test1 from '../../assets/images/testimonial-1.jpg'
+import test2 from '../../assets/images/testimonial-2.jpg'
+
 
 const SingleProduct = () => {
+  const [quantity, setQuantity] = useState(1);
   const product = useLoaderData();
+  const { checkCountCart } = useGlobalContext();
   const relateds = useApi(
     `/products/related-products/${product._id}/${product.category[0]._id}`
   );
-  const [quantity, setQuantity] = useState(1);
 
-  useEffect(() => {
-    const cart = localStorage.getItem("cart");
-    if (cart) {
-      const cartObj = JSON.parse(cart);
-      // console.log('car obj ', cartObj)
-      const [currentProduct] = cartObj.products.filter(
-        (item) => item.product === product._id
-      );
-      // console.log("current product", currentProduct.quantity);
-      if (currentProduct) {
-        setQuantity(currentProduct.quantity);
-      }
-    }
-  }, []);
+  const addToCartItem = async () => {
+    await addToCart(product._id, quantity);
+    checkCountCart();
+  };
 
   return (
     <>
@@ -44,7 +38,7 @@ const SingleProduct = () => {
                         role="tabpanel"
                       >
                         <img
-                          src={product.images[0]}
+                          src={`${process.env.REACT_APP_IMAGE_URL}/${product?.images[0]}`}
                           alt={product.title}
                           className="img-fluid"
                         />
@@ -256,55 +250,73 @@ const SingleProduct = () => {
                         </ul>
                       </div>
                       <div class="pro-btns">
-                        <a
-                          href="#"
-                          onClick={() => addToCart(product._id, quantity)}
-                          class="cart"
-                        >
+                        <Link onClick={addToCartItem} class="cart">
                           Add To Cart
-                        </a>
-                        <a
-                          href="#"
+                        </Link>
+                        <Link
                           onClick={() => addToWishlist(product._id)}
                           class="fav-com"
                           title="Add to Wishlist"
                         >
                           <i class="fa fa-heart"></i>
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="col-md-12">
                   <div className="sg-tab">
-                    <ul className="nav nav-tabs" role="tablist">
-                      <li className="nav-item">
-                        <a
-                          className="nav-link active"
-                          data-toggle="tab"
-                          href="#pro-det"
+                    <ul
+                      class="nav nav-pills mb-3"
+                      id="pills-tab"
+                      role="tablist"
+                    >
+                      <li class="nav-item" role="presentation">
+                        <button
+                          class="nav-link active"
+                          id="pills-home-tab"
+                          data-bs-toggle="pill"
+                          data-bs-target="#pills-home"
+                          role="tab"
+                          aria-controls="pills-home"
+                          aria-selected="true"
                         >
                           Product Details
-                        </a>
+                        </button>
                       </li>
-                      <li className="nav-item">
-                        <a className="nav-link" data-toggle="tab" href="#rev">
-                          Reviews (03)
-                        </a>
+                      <li class="nav-item" role="presentation">
+                        <button
+                          class="nav-link"
+                          id="pills-profile-tab"
+                          data-bs-toggle="pill"
+                          data-bs-target="#pills-profile"
+                          type="button"
+                          role="tab"
+                          aria-controls="pills-profile"
+                          aria-selected="false"
+                        >
+                          Review (0)
+                        </button>
                       </li>
                     </ul>
-                    <div className="tab-content">
+                    <div class="tab-content" id="pills-tabContent">
                       <div
-                        className="tab-pane fade show active"
-                        id="pro-det"
+                        class="tab-pane fade show active"
+                        id="pills-home"
                         role="tabpanel"
+                        aria-labelledby="pills-home-tab"
                       >
                         {product.description}
                       </div>
-                      <div className="tab-pane fade" id="rev" role="tabpanel">
+                      <div
+                        class="tab-pane fade"
+                        id="pills-profile"
+                        role="tabpanel"
+                        aria-labelledby="pills-profile-tab"
+                      >
                         <div className="review-box d-flex">
                           <div className="rv-img">
-                            <img src="images/testimonial-1.jpg" alt="" />
+                            <img src={test1} alt="" />
                           </div>
                           <div className="rv-content">
                             <h6>
@@ -337,7 +349,7 @@ const SingleProduct = () => {
                         </div>
                         <div className="review-box d-flex">
                           <div className="rv-img">
-                            <img src="images/testimonial-2.jpg" alt="" />
+                            <img src={test2} alt="" />
                           </div>
                           <div className="rv-content">
                             <h6>
@@ -423,16 +435,16 @@ const SingleProduct = () => {
                     </div>
                   </div>
                 </div>
-                <div className="col-md-12">
-                  <div className="sim-pro">
-                    <div className="sec-title">
-                      <h5>Similar Product</h5>
-                    </div>
-                    <div className="row">
-                      {relateds.data.map((product, i) => (
-                        <ProductCard key={i} product={product} />
-                      ))}
-                    </div>
+              </div>
+              <div className="col-md-12">
+                <div className="sim-pro">
+                  <div className="sec-title">
+                    <h5>Similar Product</h5>
+                  </div>
+                  <div className="row">
+                    {relateds.data.map((product, i) => (
+                      <ProductCard key={i} product={product} />
+                    ))}
                   </div>
                 </div>
               </div>
@@ -829,9 +841,7 @@ const SingleProduct = () => {
 };
 
 export async function loader({ params: { slug } }) {
-  const { data } = await axios.get(
-    "http://localhost:5000/api/v1/products/" + slug
-  );
+  const data = await loadProductBySlug(slug);
   return data;
 }
 

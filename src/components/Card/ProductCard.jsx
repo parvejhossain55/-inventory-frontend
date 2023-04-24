@@ -1,33 +1,40 @@
 import { Link } from "react-router-dom";
-import { addToCart, addToWishlist } from "../../helper/cartHelper";
+import { addToCart, addToWishlist } from "../../apiRequest";
+import { useGlobalContext } from "../../context/gobalContext";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, col = 3 }) => {
+  const { checkCountCart } = useGlobalContext();
+
+  const addCartItem = async (productId) => {
+    await addToCart(productId);
+    checkCountCart();
+  };
+
   return (
     <>
-      <div class="col-md-3 col-sm-6">
+      <div class={`col-md-${col} col-sm-6`}>
         <div class="product-grid">
           <div class="product-image">
             <Link to={`/product/${product.slug}`} class="image">
               {product?.images && (
-                <img class="pic-1" src={product?.images[0]} />
+                <img class="pic-1" src={`${process.env.REACT_APP_IMAGE_URL}/${product?.images[0]}`} />
               )}
             </Link>
 
-            {product.type === "new" || product.type === "sale" ? (
-              <span class="product-new-label">{product.type}</span>
-            ) : (
-              ""
-            )}
+            {product.type === "new" ||
+              (product.type === "sale" && (
+                <span class="product-new-label">{product.type}</span>
+              ))}
             <ul class="product-links">
               <li>
-                <a href="#" onClick={() => addToWishlist(product._id)}>
+                <Link onClick={() => addToWishlist(product._id)}>
                   <i class="fa fa-heart"></i>
-                </a>
+                </Link>
               </li>
-              <li onClick={() => addToCart(product._id)}>
-                <a href="#">
+              <li onClick={() => addCartItem(product._id)}>
+                <Link>
                   <i class="fa fa-shopping-cart"></i>
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

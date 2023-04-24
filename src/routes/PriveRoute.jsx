@@ -1,25 +1,23 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
+import { checkAuth } from "../apiRequest";
 import Loader from "../components/Loader";
-import { useAuth } from "../context/useAuth";
+import { getToken } from "../helper/helper";
 
 const PrivetRoute = () => {
   const [ok, setOk] = useState(false);
-
-  const [auth, setAuth] = useAuth();
+  const token = getToken();
 
   useEffect(() => {
-    const authCheck = async () => {
-      const { data } = await axios.get(`/auth-check`);
-      if (data.ok) {
-        setOk(true);
-      } else {
-        setOk(false);
-      }
-    };
-    if (auth?.token) authCheck();
-  }, [auth?.token]);
+    checkUserAuth();
+  }, []);
+
+  const checkUserAuth = async () => {
+    if (token) {
+      const data = await checkAuth();
+      setOk(data.ok);
+    }
+  };
 
   return ok ? <Outlet /> : <Loader />;
 };

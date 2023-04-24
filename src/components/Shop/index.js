@@ -1,19 +1,20 @@
 import axios from "axios";
 import React, { useEffect, useReducer, useState } from "react";
+import { loadFilterProduct } from "../../apiRequest";
 import { filterReducer as reducer } from "../../reducer/filterReducer";
 import ShopLeft from "./ShopLeft";
 import ShopRight from "./ShopRight";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPage] = useState(1);
 
   const [state, dispatch] = useReducer(reducer, {
     category: [],
     brand: [],
-    price: [1, 2000],
+    price: { min: 1, max: 2000 },
     sortBy: "",
     perPage: 12,
   });
@@ -38,8 +39,8 @@ const Shop = () => {
     });
   }
 
-  function handlePrice(maxPrice) {
-    dispatch({ type: "changePrice", price: [0, parseInt(maxPrice)] });
+  function handlePrice(price) {
+    dispatch({ type: "changePrice", price });
   }
 
   function handleSort(sortValue) {
@@ -52,12 +53,7 @@ const Shop = () => {
 
   async function handleFilter() {
     setLoading(true);
-    const {
-      data: { products, totalPages },
-    } = await axios.post(
-      `/products/filter-products/?page=${currentPage}`,
-      state
-    );
+    const { products, totalPages } = await loadFilterProduct(currentPage, state)
     setProducts(products);
     setTotalPage(totalPages);
     setLoading(false);
@@ -66,6 +62,9 @@ const Shop = () => {
   function handlePagination({ selected }) {
     setCurrentPage(selected + 1);
   }
+
+  function handleReset() {}
+
 
   return (
     <>
@@ -77,6 +76,7 @@ const Shop = () => {
               handleBrand={handleBrand}
               handlePrice={handlePrice}
               handleFilter={handleFilter}
+              handleReset={handleReset}
             />
             <ShopRight
               products={products}

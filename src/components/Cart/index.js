@@ -1,7 +1,60 @@
-import React from "react";
-import sbar from "../../assets/images/sbar-1.png";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  applyCouponCode,
+  loadCart,
+  removeCartItemData,
+  updateCartQuantity,
+} from "../../apiRequest";
+import { useGlobalContext } from "../../context/gobalContext";
 
 const Cart = () => {
+  const [cart, setCart] = useState([]);
+  const [calculate, setCalculate] = useState({ shipping: 0, subtotal: 0 });
+  const [coupon, setCoupon] = useState("");
+  const { checkCountCart } = useGlobalContext();
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    loadCartData();
+  }, []);
+
+  const loadCartData = async () => {
+    const { products, shipping, subtotal } = await loadCart();
+    setCart(products);
+    setCalculate({
+      ...calculate,
+      shipping: shipping,
+      subtotal: subtotal,
+    });
+  };
+
+  function decreaseQuantity(quantity, itemId) {
+    updateQuantity((quantity -= 1), itemId);
+  }
+
+  const increaseQuantity = (quantity, itemId) => {
+    updateQuantity((quantity += 1), itemId);
+  };
+
+  const updateQuantity = async (quantity, itemId) => {
+    await updateCartQuantity(quantity, itemId);
+    await loadCartData();
+    checkCountCart()
+  };
+
+  const removeCartItem = async (itemId) => {
+    await removeCartItemData(itemId);
+    await loadCartData();
+    checkCountCart();
+  };
+
+  const handleCoupon = async (e) => {
+    e.preventDefault();
+    await applyCouponCode(coupon);
+    await loadCartData();
+  };
+
   return (
     <>
       <section className="shopping-cart">
@@ -16,224 +69,143 @@ const Cart = () => {
                       <th className="t-price">Price</th>
                       <th className="t-qty">Quantity</th>
                       <th className="t-total">Total</th>
-                      <th className="t-rem"></th>
+                      <th className="t-rem">Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td className="t-pro d-flex">
-                        <div className="t-img">
-                          <a href="#">
-                            <img src={sbar} alt="" />
-                          </a>
-                        </div>
-                        <div className="t-content">
-                          <p className="t-heading">
-                            <a href="#">Samsung Smart Led Tv</a>
-                          </p>
-                          <ul className="list-unstyled list-inline rate">
-                            <li className="list-inline-item">
-                              <i className="fa fa-star"></i>
-                            </li>
-                            <li className="list-inline-item">
-                              <i className="fa fa-star"></i>
-                            </li>
-                            <li className="list-inline-item">
-                              <i className="fa fa-star"></i>
-                            </li>
-                            <li className="list-inline-item">
-                              <i className="fa fa-star"></i>
-                            </li>
-                            <li className="list-inline-item">
-                              <i className="fa fa-star-o"></i>
-                            </li>
-                          </ul>
-                          <ul className="list-unstyled col-sz">
-                            <li>
-                              <p>
-                                Color : <span>Red</span>
+                    {cart.length > 0 ? (
+                      cart.map((item, i) => (
+                        <tr key={i}>
+                          <td className="t-pro d-flex">
+                            <div className="t-img">
+                              <Link to={`/product/${item.product.slug}`}>
+                                <img
+                                  src={`${process.env.REACT_APP_IMAGE_URL}/${item.product?.images[0]}`}
+                                  alt={item.product.title}
+                                  width={100}
+                                  height={100}
+                                />
+                              </Link>
+                            </div>
+                            <div className="t-content">
+                              <p className="t-heading py-5">
+                                <Link to={`/product/${item.product.slug}`}>
+                                  {item.product.title}
+                                </Link>
                               </p>
-                            </li>
-                            <li>
-                              <p>
-                                Size : <span>M</span>
-                              </p>
-                            </li>
-                          </ul>
-                        </div>
-                      </td>
-                      <td className="t-price">$189.00</td>
-                      <td className="t-qty">
-                        <div className="qty-box">
-                          <div className="quantity buttons_added">
-                            <input type="button" value="-" className="minus" />
-                            <input
-                              type="number"
-                              step="1"
-                              min="1"
-                              max="10"
-                              value="1"
-                              className="qty text"
-                              size="4"
-                              readonly
-                            />
-                            <input type="button" value="+" className="plus" />
-                          </div>
-                        </div>
-                      </td>
-                      <td className="t-total">$189.00</td>
-                      <td className="t-rem">
-                        <a href="#">
-                          <i className="fa fa-trash-o"></i>
-                        </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="t-pro d-flex">
-                        <div className="t-img">
-                          <a href="#">
-                            <img src={sbar} alt="" />
-                          </a>
-                        </div>
-                        <div className="t-content">
-                          <p className="t-heading">
-                            <a href="#">Samsung Smart Led Tv</a>
-                          </p>
-                          <ul className="list-unstyled list-inline rate">
-                            <li className="list-inline-item">
-                              <i className="fa fa-star"></i>
-                            </li>
-                            <li className="list-inline-item">
-                              <i className="fa fa-star"></i>
-                            </li>
-                            <li className="list-inline-item">
-                              <i className="fa fa-star"></i>
-                            </li>
-                            <li className="list-inline-item">
-                              <i className="fa fa-star"></i>
-                            </li>
-                            <li className="list-inline-item">
-                              <i className="fa fa-star-o"></i>
-                            </li>
-                          </ul>
-                          <ul className="list-unstyled col-sz">
-                            <li>
-                              <p>
-                                Color : <span>Green</span>
-                              </p>
-                            </li>
-                            <li>
-                              <p>
-                                Size : <span>L</span>
-                              </p>
-                            </li>
-                          </ul>
-                        </div>
-                      </td>
-                      <td className="t-price">$129.00</td>
-                      <td className="t-qty">
-                        <div className="qty-box">
-                          <div className="quantity buttons_added">
-                            <input type="button" value="-" className="minus" />
-                            <input
-                              type="number"
-                              step="1"
-                              min="1"
-                              max="10"
-                              value="1"
-                              className="qty text"
-                              size="4"
-                              readonly
-                            />
-                            <input type="button" value="+" className="plus" />
-                          </div>
-                        </div>
-                      </td>
-                      <td className="t-total">$129.00</td>
-                      <td className="t-rem">
-                        <a href="#">
-                          <i className="fa fa-trash-o"></i>
-                        </a>
-                      </td>
-                    </tr>
+                            </div>
+                          </td>
+                          <td className="t-price">
+                            {
+                              <span
+                                className="taka"
+                              >
+                                ৳
+                              </span>
+                            }
+                            {item.price}
+                          </td>
+                          <td class="t-qty">
+                            <div class="qty-box">
+                              <div class="quantity buttons_added">
+                                <input
+                                  type="button"
+                                  onClick={() =>
+                                    decreaseQuantity(item.quantity, item._id)
+                                  }
+                                  value="-"
+                                  class="minus"
+                                  disabled={item.quantity <= 1 ? true : false}
+                                />
+                                <input
+                                  value={item.quantity}
+                                  class="qty text"
+                                  readOnly
+                                />
+                                <input
+                                  type="button"
+                                  onClick={() =>
+                                    increaseQuantity(item.quantity, item._id)
+                                  }
+                                  disabled={item.quantity >= 12 ? true : false}
+                                  value="+"
+                                  class="plus"
+                                />
+                              </div>
+                            </div>
+                          </td>
+                          <td className="t-total">
+                            {
+                              <span
+                                className="taka"
+                              >
+                                ৳
+                              </span>
+                            }
+                            {item.totalPrice}
+                          </td>
+                          <td className="t-rem">
+                            <Link onClick={() => removeCartItem(item._id)}>
+                              <i className="fa fa-trash-o"></i>
+                            </Link>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <>
+                        <h6 className="text-center mt-3 notfoundtext">
+                          No Item Found in Your Cart
+                        </h6>
+                      </>
+                    )}
                   </tbody>
                 </table>
               </div>
             </div>
-            <div className="col-md-4">
-              <div className="shipping">
-                <h6>Calculate Shipping and Tax</h6>
-                <p>Enter your destination to get shipping estimate</p>
-                <form action="#">
-                  <div className="country-box">
-                    <select className="country">
-                      <option>Select Country</option>
-                      <option>United State</option>
-                      <option>United Kingdom</option>
-                      <option>Germany</option>
-                      <option>Australia</option>
-                    </select>
+            {cart.length > 0 && (
+              <>
+                <div className="col-md-4 offset-4">
+                  <div className="coupon">
+                    <h6>Discount Coupon</h6>
+                    <p>Enter your coupon code if you have one</p>
+                    <form onSubmit={handleCoupon}>
+                      <input
+                        type="text"
+                        value={coupon}
+                        onChange={(e) => setCoupon(e.target.value)}
+                        placeholder="Your Coupon"
+                      />
+                      <button type="submit">Apply Code</button>
+                    </form>
                   </div>
-                  <div className="state-box">
-                    <select className="state">
-                      <option>State/Province</option>
-                      <option>State 1</option>
-                      <option>State 2</option>
-                      <option>State 3</option>
-                      <option>State 4</option>
-                    </select>
-                  </div>
-                  <div className="post-box">
-                    <input
-                      type="text"
-                      name="zip"
-                      value=""
-                      placeholder="Zip/Postal Code"
-                    />
-                    <button type="button">Get Estimate</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="coupon">
-                <h6>Discount Coupon</h6>
-                <p>Enter your coupon code if you have one</p>
-                <form action="#">
-                  <input
-                    type="text"
-                    name="zip"
-                    value=""
-                    placeholder="Your Coupon"
-                  />
-                  <button type="button">Apply Code</button>
-                </form>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="crt-sumry">
-                <h5>Cart Summery</h5>
-                <ul className="list-unstyled">
-                  <li>
-                    Subtotal <span>$328.00</span>
-                  </li>
-                  <li>
-                    Shipping & Tax <span>$00.00</span>
-                  </li>
-                  <li>
-                    Grand Total <span>$328.00</span>
-                  </li>
-                </ul>
-                <div className="cart-btns text-right">
-                  <button type="button" className="up-cart">
-                    Update Cart
-                  </button>
-                  <button type="button" className="chq-out">
-                    Checkout
-                  </button>
                 </div>
-              </div>
-            </div>
+                <div className="col-md-4">
+                  <div className="crt-sumry">
+                    <h5>Cart Summery</h5>
+                    <ul className="list-unstyled">
+                      <li>
+                        Subtotal <span>{calculate.subtotal}</span>
+                      </li>
+                      <li>
+                        Shipping & Tax <span>{calculate.shipping}</span>
+                      </li>
+                      <li>
+                        Grand Total{" "}
+                        <span>{calculate.subtotal + calculate.shipping}</span>
+                      </li>
+                    </ul>
+                    <div className="cart-btns text-right">
+                      <button onClick={() => navigate("/shop")}  type="button" className="up-cart">
+                        Update Cart
+                      </button>
+                      <button onClick={() => navigate("/checkout")} type="button" className="chq-out">
+                        Checkout
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </section>

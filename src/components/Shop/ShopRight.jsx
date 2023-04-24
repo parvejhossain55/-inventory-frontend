@@ -39,13 +39,18 @@ const ShopRight = ({
                 </option>
                 <option value={24}>24</option>
                 <option value={36}>36</option>
+                <option value={50}>50</option>
               </select>
             </div>
             {/* <div>Total Products {products.length}</div> */}
             <div className="page">
-              <p>
-                Page {currentPage} of {totalPages}
-              </p>
+              {totalPages > 0 ? (
+                <p>
+                  Page {currentPage} of {totalPages}
+                </p>
+              ) : (
+                <p>Page 1 of 1</p>
+              )}
             </div>
           </div>
           {/* Start Tab */}
@@ -59,27 +64,37 @@ const ShopRight = ({
             </div>
           </div>
 
-          <nav className="pagination-outer my-4">
-            <ReactPaginate
-              previousLabel={"<"}
-              nextLabel={">"}
-              breakLabel={"..."}
-              pageCount={totalPages}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={4}
-              onPageChange={handlePagination}
-              containerClassName={"pagination"}
-              pageClassName={"page-item"}
-              pageLinkClassName={"page-link"}
-              previousClassName={"page-item"}
-              previousLinkClassName={"page-link"}
-              nextClassName={"page-item"}
-              nextLinkClassName={"page-link"}
-              breakClassName={"page-item"}
-              breakLinkClassName={"page-link"}
-              activeClassName={"active"}
-            />
-          </nav>
+          {totalPages > 0 ? (
+            <nav className="pagination-outer my-4">
+              <ReactPaginate
+                previousLabel={"<"}
+                nextLabel={">"}
+                breakLabel={"..."}
+                pageCount={totalPages}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={4}
+                onPageChange={handlePagination}
+                containerClassName={"pagination"}
+                pageClassName={"page-item"}
+                pageLinkClassName={"page-link"}
+                previousClassName={"page-item"}
+                previousLinkClassName={"page-link"}
+                nextClassName={"page-item"}
+                nextLinkClassName={"page-link"}
+                breakClassName={"page-item"}
+                breakLinkClassName={"page-link"}
+                activeClassName={"active"}
+              />
+            </nav>
+          ) : (
+            <>
+              <div className="mt-3">
+                <h6 className="text-center mt-3 notfoundtext">
+                  Product Not Found
+                </h6>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </>

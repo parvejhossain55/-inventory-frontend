@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { checkAuth } from "../../apiRequest";
 
 const TopBar = () => {
+  const [login, setLogin] = useState(false);
+
+  useEffect(() => {
+    checkLogin();
+  });
+
+  const checkLogin = async () => {
+    const { ok } = await checkAuth();
+    setLogin(ok);
+  };
+
+  const logout = async () => {
+    localStorage.removeItem("auth");
+    setLogin(false);
+  };
+
   return (
     <>
       <section className="top-bar">
@@ -11,7 +28,10 @@ const TopBar = () => {
               <div className="top-left d-flex">
                 <div class="call-us">
                   <p>
-                    <i className="fa fa-regular fa-phone" style={{marginRight: "5px"}}></i>
+                    <i
+                      className="fa fa-regular fa-phone"
+                      style={{ marginRight: "5px" }}
+                    ></i>
                     +880 1303027603
                   </p>
                 </div>
@@ -27,15 +47,6 @@ const TopBar = () => {
                     </Link>
                   </li>
                   <li className="list-inline-item">
-                    <Link to="login">
-                      <i
-                        class="fa fa-light fa-lock"
-                        style={{ fontSize: "16px" }}
-                      ></i>
-                      My Account
-                    </Link>
-                  </li>
-                  <li className="list-inline-item">
                     <Link to="wishlist">
                       <i class="fa fa-light fa-heart"></i>
                       Wishlist
@@ -47,12 +58,33 @@ const TopBar = () => {
                       Checkout
                     </Link>
                   </li>
-                  <li className="list-inline-item">
-                    <Link to="register">
-                      <i class="fa fa-light fa-user"></i>
-                      Register
-                    </Link>
-                  </li>
+                  {!login && (
+                    <>
+                      <li className="list-inline-item">
+                        <Link to="login">
+                          <i
+                            class="fa fa-light fa-lock"
+                            style={{ fontSize: "16px" }}
+                          ></i>
+                          My Account
+                        </Link>
+                      </li>
+                      <li className="list-inline-item">
+                        <Link to="register">
+                          <i class="fa fa-light fa-user"></i>
+                          Register
+                        </Link>
+                      </li>
+                    </>
+                  )}
+                  {login && (
+                    <li className="list-inline-item">
+                      <Link onClick={logout}>
+                        <i class="fa fa-light fa-sign-out"></i>
+                        Logout
+                      </Link>
+                    </li>
+                  )}
                 </ul>
               </div>
             </div>

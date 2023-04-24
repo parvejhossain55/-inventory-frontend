@@ -13,14 +13,13 @@ const Login = () => {
   const [auth, setAuth] = useAuth();
 
   const navigate = useNavigate();
-  const location = useLocation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setLoading(true);
       const { data } = await axios.post(`/login`, { email, password });
-      console.log(data);
+      // console.log(data);
       setLoading(false);
 
       if (data?.error) {
@@ -28,11 +27,12 @@ const Login = () => {
       } else {
         localStorage.setItem("auth", JSON.stringify(data));
         setAuth({ ...auth, user: data.user, token: data.token });
+
+        data?.user?.role === "customer"
+          ? navigate(`/user`)
+          : navigate(`/dashboard`);
+
         toast.success(data.message);
-        navigate(
-          location.state ||
-            `/dashboard/${data?.user?.role === "customer" ? "user" : "admin"}`
-        );
       }
     } catch (error) {
       console.log(error);

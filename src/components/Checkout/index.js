@@ -1,275 +1,280 @@
-import React from "react";
-import sbar from "../../assets/images/sbar-1.png"
+import { Link, useNavigate } from "react-router-dom";
+import sbar from "../../assets/images/sbar-1.png";
+import { checkAuth, checkoutOrder, loadCart } from "../../apiRequest";
+import { useEffect, useRef, useState } from "react";
 
 const Checkout = () => {
+  const [cart, setCart] = useState([]);
+  const [shipping, setShipping] = useState(0);
+  const [subtotal, setSubtotal] = useState(0);
+  const [loading, setLoading] = useState(false);
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [country, setCountry] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setStates] = useState("");
+  const [zip, setZip] = useState("");
+  const [note, setNote] = useState("");
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    loadCartData();
+  }, []);
+
+  const loadCartData = async () => {
+    const { products, shipping, subtotal } = await loadCart();
+    setCart(products);
+    setShipping(shipping);
+    setSubtotal(subtotal);
+  };
+
+  const handlePlaceOrder = async () => {
+    const { ok } = await checkAuth();
+
+    if (!ok) {
+      navigate("/login");
+    } else {
+      setLoading(true);
+      const product_name = cart.reduce(
+        (name, product) => name + product.product.title + ", ",
+        ""
+      );
+
+      const orderData = {
+        name: firstName + " " + lastName,
+        email,
+        phone,
+        address,
+        country,
+        city,
+        state,
+        zip,
+        note,
+        product_name,
+      };
+      const { url } = await checkoutOrder(orderData);
+      setLoading(false);
+
+      window.location.replace(url);
+    }
+  };
+
   return (
     <>
-      <section class="checkout">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-7">
+      <section className="checkout">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-7">
               <form action="#">
-                <h5>Billing Information</h5>
-                <div class="row">
-                  <div class="col-md-6">
+                <h5>Shipping Information</h5>
+                <div className="row">
+                  <div className="col-md-6">
                     <label>First Name*</label>
                     <input
                       type="text"
-                      name="name"
-                      value=""
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
                       placeholder="Your first name"
                     />
                   </div>
-                  <div class="col-md-6">
+                  <div className="col-md-6">
                     <label>Last Name*</label>
                     <input
                       type="text"
-                      name="name"
-                      value=""
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
                       placeholder="Your last name"
                     />
                   </div>
-                  <div class="col-md-6">
-                    <label>Email Address*</label>
+                  <div className="col-md-6">
+                    <label>Email*</label>
                     <input
                       type="text"
-                      name="name"
-                      value=""
-                      placeholder="Your email address"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Your Emial Address"
                     />
                   </div>
-                  <div class="col-md-6">
+                  <div className="col-md-6">
                     <label>Phone*</label>
                     <input
                       type="text"
-                      name="name"
-                      value=""
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
                       placeholder="Your phone number"
                     />
                   </div>
-                  <div class="col-md-12">
-                    <label>Company Name</label>
-                    <input
-                      type="text"
-                      name="name"
-                      value=""
-                      placeholder="Your company name (optional)"
-                    />
-                  </div>
-                  <div class="col-md-12">
+                  <div className="col-md-12">
                     <label>Address*</label>
                     <input
                       type="text"
-                      name="name"
-                      value=""
-                      placeholder="Address line 1"
-                    />
-                    <input
-                      type="text"
-                      name="name"
-                      value=""
-                      placeholder="Address line 2"
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                      placeholder="Provide Your Address"
                     />
                   </div>
-                  <div class="col-md-6 contry">
+                  <div className="col-md-6 contry">
                     <label>Country*</label>
-                    <select class="country">
-                      <option>United State</option>
-                      <option>Canada</option>
-                      <option>United Kingdom</option>
-                      <option>Australia</option>
-                      <option>Germany</option>
+                    <select
+                      onChange={(e) => setCountry(e.target.value)}
+                      className="country"
+                    >
+                      <option>Select Country</option>
+                      <option value="Bangladesh">Bangladesh</option>
                     </select>
                   </div>
-                  <div class="col-md-6">
+                  <div className="col-md-6">
                     <label>Town/City*</label>
                     <input
                       type="text"
-                      name="name"
-                      value=""
+                      value={city}
+                      onChange={(e) => setCity(e.target.value)}
                       placeholder="Your town or city name"
                     />
                   </div>
-                  <div class="col-md-6">
+                  <div className="col-md-6">
                     <label>State/Province*</label>
                     <input
                       type="text"
-                      name="name"
-                      value=""
+                      value={state}
+                      onChange={(e) => setStates(e.target.value)}
                       placeholder="Your state or province"
                     />
                   </div>
-                  <div class="col-md-6">
+                  <div className="col-md-6">
                     <label>Postal/Zip Code*</label>
                     <input
                       type="text"
-                      name="name"
-                      value=""
+                      value={zip}
+                      onChange={(e) => setZip(e.target.value)}
                       placeholder="Your postal or zip code"
                     />
                   </div>
-                  <div class="col-md-12">
-                    <ul class="list-unstyled">
+                  {/* <div className="col-md-12">
+                    <ul className="list-unstyled">
                       <li>
                         <input type="checkbox" id="samsung" name="name" />
-                        <label for="samsung">Create An Account?</label>
+                        <label htmlFor="samsung">Create An Account?</label>
                       </li>
                       <li>
                         <input type="checkbox" id="apple" name="name" />
-                        <label for="apple">Ship To Same Address?</label>
+                        <label htmlFor="apple">Ship To Same Address?</label>
                       </li>
                     </ul>
-                  </div>
-                  <div class="col-md-12">
+                  </div> */}
+                  <div className="col-md-12">
                     <label>Order Note</label>
                     <textarea
                       name="note"
-                      placeholder="Note for your order (optional). Example- special notes for delivery"
+                      value={note}
+                      onChange={(e) => setNote(e.target.value)}
+                      placeholder="Note htmlFor your order (optional). Example- special notes htmlFor delivery"
                     ></textarea>
                   </div>
                 </div>
               </form>
             </div>
-            <div class="col-md-5">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="order-review">
+            <div className="col-md-5">
+              <div className="row">
+                <div className="col-md-12">
+                  <div className="order-review">
                     <h5>Order Review</h5>
-                    <div class="review-box">
-                      <ul class="list-unstyled">
+                    <div className="review-box">
+                      <ul className="list-unstyled">
                         <li>
                           Product <span>Total</span>
                         </li>
-                        <li class="d-flex justify-content-between">
-                          <div class="pro">
-                            <img src={sbar} alt="" />
-                            <p>Product name here</p>
-                            <span>1 X $49.00</span>
-                          </div>
-                          <div class="prc">
-                            <p>$49.00</p>
-                          </div>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                          <div class="pro">
-                            <img src={sbar} alt="" />
-                            <p>Product name here</p>
-                            <span>1 X $89.00</span>
-                          </div>
-                          <div class="prc">
-                            <p>$89.00</p>
-                          </div>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                          <div class="pro">
-                            <img src={sbar} alt="" />
-                            <p>Product name here</p>
-                            <span>1 X $29.00</span>
-                          </div>
-                          <div class="prc">
-                            <p>$29.00</p>
-                          </div>
+                        {cart.map((product, i) => (
+                          <li
+                            key={i}
+                            className="d-flex justify-content-between"
+                          >
+                            <div className="pro">
+                              <img src={sbar} alt="" />
+                              <p>{product.product.title}</p>
+                              <span>
+                                {product.quantity} X{" "}
+                                <span>৳{product.price}</span>
+                              </span>
+                            </div>
+                            <div className="prc">
+                              {/* <p>$49.00</p> */}
+                              <p>৳{product.totalPrice}</p>
+                            </div>
+                          </li>
+                        ))}
+
+                        <li>
+                          Sub Total <span>৳{subtotal}</span>
                         </li>
                         <li>
-                          Sub Total <span>$167.00</span>
+                          Shipping & Tax <span>৳{shipping}</span>
                         </li>
                         <li>
-                          Shipping & Tax <span>$00.00</span>
-                        </li>
-                        <li>
-                          Grand Total <span>$167.00</span>
+                          Grand Total <span>৳{subtotal + shipping}</span>
                         </li>
                       </ul>
                     </div>
                   </div>
                 </div>
-                <div class="col-md-12">
-                  <div class="pay-meth">
+                <div className="col-md-12">
+                  {/* <div className="pay-meth">
                     <h5>Payment Method</h5>
-                    <div class="pay-box">
-                      <ul class="list-unstyled">
+                    <div className="pay-box">
+                      <ul className="list-unstyled">
                         <li>
                           <input
                             type="radio"
                             id="pay1"
-                            name="payment"
-                            value="pay1"
-                            checked
+                            defaultValue={"cod"}
+                            // onChange={(e) => setPaymentMethod(e.target.value)}
                           />
-                          <label for="pay1">
+                          <label htmlFor="pay1">
                             <span>
-                              <i class="fa fa-circle"></i>
+                              <i className="fa fa-circle"></i>
                             </span>
                             Cash On Delivery
                           </label>
                           <p>
                             Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit. Eaque sint placeat illo animi quis minus
-                            accusantium ad doloribus, odit explicabo asperiores
-                            quidem.
+                            elit. Eaque sint placeat illo animi quis minus.
                           </p>
                         </li>
                         <li>
                           <input
                             type="radio"
-                            id="pay2"
-                            name="payment"
-                            value="pay2"
-                          />
-                          <label for="pay2">
-                            <span>
-                              <i class="fa fa-circle"></i>
-                            </span>
-                            Direct Bank Transfer
-                          </label>
-                        </li>
-                        <li>
-                          <input
-                            type="radio"
-                            id="pay3"
-                            name="payment"
-                            value="pay3"
-                          />
-                          <label for="pay3">
-                            <span>
-                              <i class="fa fa-circle"></i>
-                            </span>
-                            Cheque Payment
-                          </label>
-                        </li>
-                        <li>
-                          <input
-                            type="radio"
-                            id="pay4"
-                            name="payment"
-                            value="pay4"
-                          />
-                          <label for="pay4">
-                            <span>
-                              <i class="fa fa-circle"></i>
-                            </span>
-                            Paypal
-                          </label>
-                        </li>
-                        <li>
-                          <input
-                            type="radio"
                             id="pay5"
-                            name="payment"
-                            value="pay5"
+                            defaultValue={"op"}
+                            // onChange={(e) => setPaymentMethod(e.target.value)}
                           />
-                          <label for="pay5">
+                          <label htmlFor="pay5">
                             <span>
-                              <i class="fa fa-circle"></i>
+                              <i className="fa fa-circle"></i>
                             </span>
-                            Payoneer
+                            Online Payment
                           </label>
                         </li>
                       </ul>
                     </div>
-                  </div>
-                  <button type="button" name="button" class="ord-btn">
-                    Place Order
+                  </div> */}
+                  <button
+                    onClick={handlePlaceOrder}
+                    type="button"
+                    className="ord-btn"
+                  >
+                    {!loading ? (
+                      "Place Order"
+                    ) : (
+                      <>
+                        Loading...
+                        <div class="spinner-border text-white pt-2"></div>
+                      </>
+                    )}
                   </button>
                 </div>
               </div>

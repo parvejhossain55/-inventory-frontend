@@ -1,4 +1,4 @@
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Shop from "../components/Shop";
 import Home from "../components/Home";
 import Layout from "../components/Layout";
@@ -17,6 +17,18 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Loader from "../components/Loader";
 import PrivetRoute from "./PriveRoute";
+import ProductByCategory from "../components/Shop/ProductByCategory";
+import SearchProduct from "../components/Shop/SearchProduct";
+import Dashboard from "../components/User";
+import AdminRoute from "./AdminRoute";
+import CreateProduct from "../components/Admin/Product/CreateProduct";
+import CreateBrand from "../components/Admin/Brand";
+import CreateCategory from "../components/Admin/Category";
+import AllProducts from "../components/Admin/Product/AllProducts";
+import EditProduct from "../components/Admin/Product/EditProduct";
+import OrderSuccess from "../components/TrackOrder/OrderSuccess";
+import AdminOrder from "../components/Admin/Orders";
+import Coupon from "../components/Admin/Coupon";
 
 const router = createBrowserRouter([
   {
@@ -44,10 +56,17 @@ const router = createBrowserRouter([
         loader: singleProductLoader,
       },
       {
+        path: "/category/:slug",
+        element: <ProductByCategory />,
+      },
+      {
+        path: "/search",
+        element: <SearchProduct />,
+      },
+      {
         path: "/cart",
         element: <Cart />,
         loader: () => null,
-        action: () => null,
       },
       {
         path: "/checkout",
@@ -58,18 +77,14 @@ const router = createBrowserRouter([
       {
         path: "/wishlist",
         element: <Wishlist />,
-        loader: () => null,
-        action: () => null,
       },
       {
         path: "/compare",
         element: <Compare />,
-        loader: () => null,
       },
       {
         path: "/track-order",
         element: <TrackOrder />,
-        loader: () => null,
       },
       {
         path: "/about",
@@ -99,54 +114,81 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/dashboard",
-    element: <PrivetRoute/>,
+    path: "/user",
+    element: <PrivetRoute />,
     errorElement: <div>There are some error</div>,
     children: [
+      { index: true, element: <Dashboard /> },
       {
-        path: "user",
-        element: <div>Dashboard User</div>,
-        loader: () => null,
-      },
-      {
-        path: "user/profile",
+        path: "profile",
         element: <div>Dashboard User Profile</div>,
         loader: () => null,
       },
       {
-        path: "user/order",
+        path: "order",
         element: <div>Dashboard User Order</div>,
         loader: () => null,
+      },
+      {
+        path: "order-success/:orderId",
+        element: <OrderSuccess />,
       },
     ],
   },
   {
     path: "/dashboard",
-    element: (
-      <div>
-        Dashboard / check admin authentication <Outlet />
-      </div>
-    ),
+    element: <AdminRoute />,
     errorElement: <div>There are some error</div>,
     children: [
       {
-        path: "admin",
-        element: <div>Dashboard Admin</div>,
-        loader: () => null,
-      },
-      {
-        path: "admin/profile",
+        path: "profile",
         element: <div>Dashboard Admin Profile</div>,
+      },
+      {
+        path: "brand",
+        element: <CreateBrand />,
         loader: () => null,
       },
       {
-        path: "admin/category",
-        element: <div>Dashboard Admin Category</div>,
+        path: "category",
+        element: <CreateCategory />,
         loader: () => null,
       },
       {
-        path: "admin/product",
-        element: <div>Dashboard Admin Product</div>,
+        path: "products",
+        element: <AllProducts />,
+      },
+      {
+        path: "product",
+        element: <CreateProduct />,
+      },
+      {
+        path: "product/:slug",
+        element: <EditProduct />,
+      },
+      {
+        path: "order",
+        element: <AdminOrder />,
+        loader: () => null,
+      },
+      {
+        path: "coupon",
+        element: <Coupon />,
+        loader: () => null,
+      },
+      {
+        path: "customer",
+        element: <div>Dashboard Admin customer</div>,
+        loader: () => null,
+      },
+      {
+        path: "transaction",
+        element: <div>Dashboard Admin transaction</div>,
+        loader: () => null,
+      },
+      {
+        path: "refund",
+        element: <div>Dashboard Admin refund</div>,
         loader: () => null,
       },
     ],
