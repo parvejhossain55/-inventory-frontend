@@ -64,6 +64,7 @@ const AdminOrder = () => {
                     <table className="table w-100 table-hover">
                       <thead className="table-light text-center">
                         <tr>
+                          <th style={{ width: "5px" }}>SL</th>
                           <th style={{ width: "100px" }}>Order ID</th>
                           <th style={{ width: "70px" }}>Name</th>
                           <th style={{ width: "70px" }}>Date</th>
@@ -74,8 +75,9 @@ const AdminOrder = () => {
                         </tr>
                       </thead>
                       <tbody className="text-center">
-                        {orders.map((order) => (
+                        {orders.map((order, i) => (
                           <tr>
+                            <td>{i + 1}</td>
                             <td>{order.orderId}</td>
                             <td>
                               {order.user.firstName + " " + order.user.lastName}

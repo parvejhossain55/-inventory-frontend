@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { addToCart, loadWishlistData, removeWishlistData } from "../../apiRequest";
+import {
+  addToCart,
+  loadWishlistData,
+  removeWishlistData,
+} from "../../apiRequest";
 import { useGlobalContext } from "../../context/gobalContext";
 
 const Wishlist = () => {
   const [wishlist, setWishlist] = useState([]);
-    const { checkCountCart } = useGlobalContext();
+  const { checkCountCart } = useGlobalContext();
 
   useEffect(() => {
     loadWishlist();
@@ -23,8 +27,8 @@ const Wishlist = () => {
 
   const addToCartItem = async (productId) => {
     await addToCart(productId);
-    checkCountCart()
-  } 
+    checkCountCart();
+  };
 
   return (
     <>
@@ -44,7 +48,7 @@ const Wishlist = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {wishlist.length > 0 ? (
+                    {wishlist?.length > 0 ? (
                       wishlist.map((item) => (
                         <tr>
                           <td className="t-pro d-flex">
