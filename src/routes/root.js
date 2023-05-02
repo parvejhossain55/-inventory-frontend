@@ -29,6 +29,11 @@ import EditProduct from "../components/Admin/Product/EditProduct";
 import OrderSuccess from "../components/TrackOrder/OrderSuccess";
 import AdminOrder from "../components/Admin/Orders";
 import Coupon from "../components/Admin/Coupon";
+import Transaction from "../components/Admin/Transaction";
+import UserProfile from "../components/User/Profile";
+import UserOrder from "../components/User/Order";
+import UserWishlist from "../components/User/Wishlist";
+import UserTrackOrder from "../components/User/TrackOrder";
 
 const router = createBrowserRouter([
   {
@@ -121,12 +126,22 @@ const router = createBrowserRouter([
       { index: true, element: <Dashboard /> },
       {
         path: "profile",
-        element: <div>Dashboard User Profile</div>,
+        element: <UserProfile />,
         loader: () => null,
       },
       {
         path: "order",
-        element: <div>Dashboard User Order</div>,
+        element: <UserOrder />,
+        loader: () => null,
+      },
+      {
+        path: "wishlist",
+        element: <UserWishlist />,
+        loader: () => null,
+      },
+      {
+        path: "track-order",
+        element: <UserTrackOrder />,
         loader: () => null,
       },
       {
@@ -176,14 +191,14 @@ const router = createBrowserRouter([
         element: <Coupon />,
         loader: () => null,
       },
-      {
-        path: "customer",
-        element: <div>Dashboard Admin customer</div>,
-        loader: () => null,
-      },
+      // {
+      //   path: "customer",
+      //   element: <div>Dashboard Admin customer</div>,
+      //   loader: () => null,
+      // },
       {
         path: "transaction",
-        element: <div>Dashboard Admin transaction</div>,
+        element: <Transaction />,
         loader: () => null,
       },
       {

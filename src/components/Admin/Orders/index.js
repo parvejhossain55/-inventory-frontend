@@ -83,23 +83,21 @@ const AdminOrder = () => {
                             <td>
                               {moment(order.createdAt).format("MMMM D, YYYY")}
                             </td>
-                            <td>{order.payment.amount}</td>
+                            <td>{order?.payment?.amount}</td>
                             <td>
                               <span
                                 class={`badge text-bg-${
-                                  order.payment.paymentStatus === "VALID"
+                                  order?.payment?.paymentStatus === "Paid"
                                     ? "success"
                                     : "danger"
                                 }`}
                               >
-                                {order.payment.paymentStatus === "VALID"
-                                  ? "Paid"
-                                  : "Unpaid"}
+                                {order?.payment?.paymentStatus}
                               </span>
                             </td>
                             <td>
                               <span class="badge text-bg-secondary">
-                                {order.status}
+                                {order?.status}
                               </span>
                             </td>
                             <td className="table-action">

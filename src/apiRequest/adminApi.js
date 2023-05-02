@@ -102,3 +102,8 @@ export const deleteCoupon = async (code) => {
   const { data } = await axios.delete(`/coupons/${code}`, headers);
   toast.error(data.message);
 };
+
+export const loadAllTransaction = async () => {
+  const { data } = await axios.get("/transactions", headers);
+  return data;
+};

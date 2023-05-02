@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
 import { checkAuthAdmin } from "../apiRequest";
 import Loader from "../components/Loader";
 import {
@@ -10,7 +9,7 @@ import {
 import logo from "../assets/admin/img/AdminLTELogo.png";
 import userImg from "../assets/admin/img/user1-128x128.jpg";
 import { FaChevronLeft, FaTachometerAlt } from "react-icons/fa";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 
 import {
   MdEditSquare,
@@ -26,8 +25,6 @@ import {
 const AdminRoute = () => {
   const [ok, setOk] = useState(false);
 
-  // const token = getToken();
-
   useEffect(() => {
     checkAdminAuth();
   }, []);
@@ -35,6 +32,11 @@ const AdminRoute = () => {
   const checkAdminAuth = async () => {
     const data = await checkAuthAdmin();
     setOk(data.ok);
+  };
+
+  const logout = async () => {
+    localStorage.removeItem("auth");
+    window.location.replace("/login");
   };
 
   return ok ? (
@@ -135,14 +137,10 @@ const AdminRoute = () => {
                   <i className="fas fa-user mr-2"></i> Profile
                 </Link>
                 <div className="dropdown-divider"></div>
-                <a
-                  href="#"
-                  onClick={() => console.log("logout")}
-                  className="dropdown-item"
-                >
+                <Link onClick={logout} className="dropdown-item">
                   <i className="fa fa-sign-out mr-2"></i>
                   Logout
-                </a>
+                </Link>
               </div>
             </li>
           </ul>
@@ -234,14 +232,14 @@ const AdminRoute = () => {
                     <p>Coupon</p>
                   </Link>
                 </li>
-                <li class="nav-item">
+                {/* <li class="nav-item">
                   <Link to="/dashboard/customer" class="nav-link">
                     <i class="nav-icon">
                       <MdAccountBox />
                     </i>
                     <p>Customer</p>
                   </Link>
-                </li>
+                </li> */}
                 <li class="nav-item">
                   <Link to="/dashboard/transaction" class="nav-link">
                     <i class="nav-icon">
@@ -250,14 +248,14 @@ const AdminRoute = () => {
                     <p>Transaction</p>
                   </Link>
                 </li>
-                <li class="nav-item">
+                {/* <li class="nav-item">
                   <Link to="/dashboard/refund" class="nav-link">
                     <i class="nav-icon">
                       <MdMoveDown />
                     </i>
                     <p>Refund</p>
                   </Link>
-                </li>
+                </li> */}
 
                 <hr
                   style={{
