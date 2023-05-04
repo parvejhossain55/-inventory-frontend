@@ -14,9 +14,39 @@ console.log("headers", headers);
 
 // Check User Authentication
 export const checkAuth = async () => {
-  const { data } = await axios.get(`/auth-check`, headers);
+  try {
+    const { data } = await axios.get(`/auth-check`, headers);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// Get User Profile
+export const getUser = async () => {
+  const { data } = await axios.get(`/get-user`, headers);
   // console.log('user', data)
   return data;
+};
+
+// Update User Profile
+export const updateProfile = async (data) => {
+  try {
+    if (data.newPass || data.confPass) {
+      if (data.newPass !== data.confPass) {
+        toast.error("Password Does not Match");
+      } else {
+        await axios.put(`/update-profile`, data, headers);
+        toast.success("Profile Successfully Updated");
+      }
+    } else {
+      await axios.put(`/update-profile`, data, headers);
+      toast.success("Profile Successfully Updated");
+    }
+  } catch (error) {
+    console.error(error);
+    toast.error("Profile Update Failed");
+  }
 };
 
 // Check User Authentication
