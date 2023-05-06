@@ -220,3 +220,10 @@ export const checkoutOrder = async (order) => {
   const { data } = await axios.post("/cart/checkout", order, headers);
   return data;
 };
+
+// check order status
+export const checkOrderStatus = async (orderId) => {
+  const { data } = await axios.get(`/order/${orderId}`);
+  console.log("data", data);
+  return data;
+};
