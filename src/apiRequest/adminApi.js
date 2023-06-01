@@ -39,12 +39,8 @@ export const loadAllBrands = async () => {
 
 export const brandCreate = async (brand) => {
   const { data } = await axios.post(`/brand`, brand, headers);
-  return data;
-};
-
-export const deleteBrnad = async (id) => {
-  const { data } = await axios.delete(`/brand/${id}`, headers);
   toast.success(data.message);
+  return data;
 };
 
 export const brandUpdate = async (id, brand) => {
@@ -58,6 +54,15 @@ export const createProduct = async (product) => {
   const { data } = await axios.post("/products", product, headers);
   toast.success(data.message);
   return data;
+};
+
+// delete barnad data
+export const deleteBrnad = async ({ id, public_id, secure_url }) => {
+  const { data } = await axios.delete(
+    `/brand/${id}/?public_id=${public_id}`,
+    headers
+  );
+  toast.success(data.message);
 };
 
 export const AllProductsData = async () => {

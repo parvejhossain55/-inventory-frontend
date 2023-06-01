@@ -12,7 +12,7 @@ import slugify from "slugify";
 const CreateBrand = () => {
   const [brands, setBrands] = useState(null);
   const [update, setUpdate] = useState(false);
-  const [oldData, setOldData] = useState({ id: "", image: "" });
+  const [oldData, setOldData] = useState({ id: "", image: {} });
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
 
@@ -35,11 +35,6 @@ const CreateBrand = () => {
     await loadBrands();
   };
 
-  const handleDelete = async (id) => {
-    await deleteBrnad(id);
-    loadBrands();
-  };
-
   const updateBrand = (brandId) => {
     const [data] = brands.filter((brand) => brand._id === brandId);
 
@@ -48,13 +43,16 @@ const CreateBrand = () => {
     setUpdate(true);
   };
 
-  const handleUpdate = async () => {
+  const handleUpdate = async (e) => {
+    e.preventDefault();
     const formData = new FormData();
     formData.append("name", name);
+    formData.append("slug", slugify(name, { lower: true }));
 
     if (image) {
       formData.append("image", image);
-      formData.append("old_img", oldData.image);
+      formData.append("public_id", oldData.image.public_id);
+      formData.append("secure_url", oldData.image.secure_url);
     }
 
     await brandUpdate(oldData.id, formData);
@@ -62,8 +60,14 @@ const CreateBrand = () => {
     setUpdate(false);
     setName("");
     setImage("");
-    setOldData({ id: "", image: "" });
+    setOldData({ id: "", image: {} });
     setUpdate(false);
+    loadBrands();
+  };
+
+  const handleDelete = async (e) => {
+    const { id, public_id, secure_url } = e.target.dataset;
+    await deleteBrnad({ id, public_id, secure_url });
     loadBrands();
   };
 
@@ -95,7 +99,7 @@ const CreateBrand = () => {
                         <td style={{ verticalAlign: "middle" }}>{i + 1}</td>
                         <td>
                           <img
-                            src={`${process.env.REACT_APP_IMAGE_URL}/${brand.image}`}
+                            src={brand?.image?.secure_url}
                             width="50px"
                             height="50px"
                           />
@@ -110,13 +114,18 @@ const CreateBrand = () => {
                               onClick={() => updateBrand(brand._id)}
                               class="btn btn-warning"
                             >
-                              <MdOutlineEditOff />
+                              {/* <MdOutlineEditOff /> */}
+                              Edit
                             </button>
                             <button
-                              onClick={() => handleDelete(brand._id)}
+                              data-id={brand._id}
+                              data-public_id={brand.image?.public_id}
+                              data-secure_url={brand.image?.secure_url}
+                              onClick={handleDelete}
                               class="btn btn-outline-danger"
                             >
-                              <MdOutlineDeleteSweep />
+                              {/* <MdOutlineDeleteSweep /> */}
+                              Delete
                             </button>
                           </div>
                         </td>
@@ -124,8 +133,9 @@ const CreateBrand = () => {
                     ))
                   ) : (
                     <>
-                      {" "}
-                      <p>Brand Not Found</p>
+                      <div className="card-body ">
+                        <p className="text-center">Brand Not Found</p>
+                      </div>
                     </>
                   )}
                 </tbody>
@@ -223,7 +233,7 @@ const CreateBrand = () => {
                             ) : (
                               <div className="text-center">
                                 <img
-                                  src={`${process.env.REACT_APP_IMAGE_URL}/${oldData.image}`}
+                                  src={oldData.image.secure_url}
                                   alt="Product Photo"
                                   className="img img-responsive rounded "
                                   height="150px"

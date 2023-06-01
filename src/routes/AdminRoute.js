@@ -21,13 +21,16 @@ import {
   MdOutlineAttachMoney,
   MdMoveDown,
 } from "react-icons/md";
+import { useAuth } from "../context/useAuth";
 
 const AdminRoute = () => {
   const [ok, setOk] = useState(false);
+  const [auth, setAuth] = useAuth();
 
   useEffect(() => {
-    checkAdminAuth();
-  }, []);
+    console.log("auth in admin", auth);
+    if (auth?.token) checkAdminAuth();
+  }, [auth?.token]);
 
   const checkAdminAuth = async () => {
     const data = await checkAuthAdmin();
