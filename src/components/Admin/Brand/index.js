@@ -105,7 +105,7 @@ const CreateBrand = () => {
                         <td style={{ verticalAlign: "middle" }}>{i + 1}</td>
                         <td>
                           <img
-                            src={`${process.env.REACT_APP_IMAGE_URL}/${brand.image}`}
+                            src={brand.image.secure_url}
                             width="50px"
                             height="50px"
                           />
