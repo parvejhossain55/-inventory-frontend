@@ -6,6 +6,9 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({ user: null, token: "" });
 
+  axios.defaults.baseURL = process.env.REACT_APP_API;
+  axios.defaults.headers.common["Authorization"] = "Bearer " + auth?.token;
+
   useEffect(() => {
     const data = localStorage.getItem("auth");
     if (data) {

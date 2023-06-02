@@ -6,11 +6,10 @@ import Loader from "../components/Loader";
 import { useAuth } from "../context/useAuth";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-
   const [auth, setAuth] = useAuth();
+  const [email, setEmail] = useState("muhammadparvej98@gmail.com");
+  const [password, setPassword] = useState("Parvej@55");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -43,7 +42,7 @@ const Login = () => {
   };
   return (
     <>
-      {loading === true ? <Loader /> : ""}
+      {/* {loading === true ? <Loader /> : ""} */}
       <section className="login">
         <div className="container">
           <div className="row">

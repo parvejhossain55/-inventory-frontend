@@ -1,17 +1,11 @@
-import axios from "axios";
 import { toast } from "react-toastify";
-
-const auth = localStorage.getItem("auth");
-const data = JSON.parse(auth);
-const token = data?.token;
+import axios from "../helper/axiosInstance";
+import { getToken } from "../helper/helper";
 
 // set axios default value
-axios.defaults.baseURL = process.env.REACT_APP_API;
-const headers = { headers: { Authorization: "Bearer " + token } };
+// axios.defaults.baseURL = process.env.REACT_APP_API;
+const headers = { headers: { Authorization: "Bearer " + getToken() } };
 // axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-
-// console.log("headers", headers);
-console.log("token", token);
 
 // Check User Authentication
 export const checkAuth = async () => {
@@ -21,6 +15,14 @@ export const checkAuth = async () => {
   } catch (error) {
     console.error(error);
   }
+};
+
+// Check Admin Authentication
+export const checkAuthAdmin = async () => {
+  const { data } = await axios.get(`/admin-check`, headers);
+  console.log("headers ", headers);
+  console.log("data ", data);
+  return data;
 };
 
 // Get User Profile
@@ -48,13 +50,6 @@ export const updateProfile = async (data) => {
     console.error(error);
     toast.error("Profile Update Failed");
   }
-};
-
-// Check User Authentication
-export const checkAuthAdmin = async () => {
-  const { data } = await axios.get(`/admin-check`, headers);
-  // console.log("admin ", data);
-  return data;
 };
 
 // Filter Product

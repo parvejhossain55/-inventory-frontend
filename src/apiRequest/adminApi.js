@@ -48,6 +48,7 @@ export const deleteBrnad = async ({ brandId, public_id }) => {
     headers
   );
   toast.success(data.message);
+  return data;
 };
 
 export const brandUpdate = async (id, brand) => {
@@ -62,6 +63,15 @@ export const createProduct = async (product) => {
   toast.success(data.message);
   return data;
 };
+
+// delete barnad data
+// export const deleteBrnad = async ({ id, public_id, secure_url }) => {
+//   const { data } = await axios.delete(
+//     `/brand/${id}/?public_id=${public_id}`,
+//     headers
+//   );
+//   toast.success(data.message);
+// };
 
 export const AllProductsData = async () => {
   const { data } = await axios.get("/products");

@@ -37,8 +37,8 @@ const CreateBrand = () => {
     setImage("");
   };
 
-  const handleDelete = async (brand) => {
-    await deleteBrnad(brand);
+  const handleDelete = async (id) => {
+    await deleteBrnad(id);
     loadBrands();
   };
 
@@ -51,23 +51,31 @@ const CreateBrand = () => {
     setUpdate(true);
   };
 
-  const handleUpdate = async () => {
+  const handleUpdate = async (e) => {
+    e.preventDefault();
     const formData = new FormData();
     formData.append("name", name);
-    formData.append("slug", slugify(name));
-    formData.append("public_id", oldData.image.public_id);
 
-    image && formData.append("image", image);
+    if (image) {
+      formData.append("image", image);
+      formData.append("old_img", oldData.image);
+    }
 
     await brandUpdate(oldData.id, formData);
 
     setUpdate(false);
     setName("");
     setImage("");
-    setOldData({ id: "", image: "" });
+    setOldData({ id: "", image: {} });
     setUpdate(false);
     loadBrands();
   };
+
+  // const handleDelete = async (e) => {
+  //   const { id, public_id, secure_url } = e.target.dataset;
+  //   await deleteBrnad({ id, public_id, secure_url });
+  //   loadBrands();
+  // };
 
   return (
     <>
@@ -97,7 +105,7 @@ const CreateBrand = () => {
                         <td style={{ verticalAlign: "middle" }}>{i + 1}</td>
                         <td>
                           <img
-                            src={brand.image.secure_url}
+                            src={`${process.env.REACT_APP_IMAGE_URL}/${brand.image}`}
                             width="50px"
                             height="50px"
                           />
@@ -112,18 +120,15 @@ const CreateBrand = () => {
                               onClick={() => updateBrand(brand._id)}
                               class="btn btn-warning"
                             >
-                              <MdOutlineEditOff />
+                              {/* <MdOutlineEditOff /> */}
+                              Edit
                             </button>
                             <button
-                              onClick={() =>
-                                handleDelete({
-                                  brandId: brand._id,
-                                  public_id: oldData.image.public_id,
-                                })
-                              }
+                              onClick={() => handleDelete(brand._id)}
                               class="btn btn-outline-danger"
                             >
-                              <MdOutlineDeleteSweep />
+                              {/* <MdOutlineDeleteSweep /> */}
+                              Delete
                             </button>
                           </div>
                         </td>
@@ -131,8 +136,9 @@ const CreateBrand = () => {
                     ))
                   ) : (
                     <>
-                      {" "}
-                      <p>Brand Not Found</p>
+                      <div className="card-body ">
+                        <p className="text-center">Brand Not Found</p>
+                      </div>
                     </>
                   )}
                 </tbody>

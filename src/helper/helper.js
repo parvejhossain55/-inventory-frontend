@@ -1,29 +1,63 @@
-function checkMenuDropdown(e) {
-  if (e.target.parentNode.className.indexOf("menu-open") === -1) {
-    e.target.parentNode.classList.add("menu-open");
-  } else {
-    e.target.parentNode.classList.remove("menu-open");
+class MyFunctions {
+  checkMenuDropdown(e) {
+    if (e.target.parentNode.className.indexOf("menu-open") === -1) {
+      e.target.parentNode.classList.add("menu-open");
+    } else {
+      e.target.parentNode.classList.remove("menu-open");
+    }
+  }
+
+  showProfileDropdown() {
+    let item = document.querySelector("#showProfiledropdown");
+    let itemlist = document
+      .querySelector("#showProfiledropdown")
+      .querySelector("#dropdoownRight");
+
+    if (
+      item.classList.contains("show") ||
+      itemlist.classList.contains("show")
+    ) {
+      item.classList.remove("show") || itemlist.classList.remove("show");
+    } else {
+      item.classList.add("show") || itemlist.classList.add("show");
+    }
+  }
+
+  // Session Helper
+  getToken() {
+    const auth = localStorage.getItem("auth");
+    const data = JSON.parse(auth);
+    return data?.token;
   }
 }
 
-function showProfileDropdown() {
-  let item = document.querySelector("#showProfiledropdown");
-  let itemlist = document
-    .querySelector("#showProfiledropdown")
-    .querySelector("#dropdoownRight");
+// function checkMenuDropdown(e) {
+//   if (e.target.parentNode.className.indexOf("menu-open") === -1) {
+//     e.target.parentNode.classList.add("menu-open");
+//   } else {
+//     e.target.parentNode.classList.remove("menu-open");
+//   }
+// }
 
-  if (item.classList.contains("show") || itemlist.classList.contains("show")) {
-    item.classList.remove("show") || itemlist.classList.remove("show");
-  } else {
-    item.classList.add("show") || itemlist.classList.add("show");
-  }
-}
+// function showProfileDropdown() {
+//   let item = document.querySelector("#showProfiledropdown");
+//   let itemlist = document
+//     .querySelector("#showProfiledropdown")
+//     .querySelector("#dropdoownRight");
 
-// Session Helper
-const getToken = () => {
-  const auth = localStorage.getItem("auth");
-  const data = JSON.parse(auth);
-  return data?.token;
-};
+//   if (item.classList.contains("show") || itemlist.classList.contains("show")) {
+//     item.classList.remove("show") || itemlist.classList.remove("show");
+//   } else {
+//     item.classList.add("show") || itemlist.classList.add("show");
+//   }
+// }
 
-export { checkMenuDropdown, showProfileDropdown, getToken };
+// // Session Helper
+// const getToken = () => {
+//   const auth = localStorage.getItem("auth");
+//   const data = JSON.parse(auth);
+//   return data?.token;
+// };
+
+export const { checkMenuDropdown, showProfileDropdown, getToken } =
+  new MyFunctions();
