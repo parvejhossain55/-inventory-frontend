@@ -3,7 +3,7 @@ import axios from "../helper/axiosInstance";
 import { getToken } from "../helper/helper";
 
 // set axios default value
-// axios.defaults.baseURL = process.env.REACT_APP_API;
+axios.defaults.baseURL = process.env.REACT_APP_API;
 const headers = { headers: { Authorization: "Bearer " + getToken() } };
 // axios.defaults.headers.common["Authorization"] = "Bearer " + token;
 

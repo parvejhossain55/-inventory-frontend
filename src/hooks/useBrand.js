@@ -10,7 +10,7 @@ const useBrand = () => {
 
   const loadBrands = async () => {
     try {
-      const { data } = await axios.get("http://localhost:5000/api/v1/brand");
+      const { data } = await axios.get(`${process.env.REACT_APP_API}/brand`);
       setBrands(data);
     } catch (error) {
       console.log(error);
