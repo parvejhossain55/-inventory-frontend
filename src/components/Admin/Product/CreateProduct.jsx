@@ -66,7 +66,7 @@ const CreateProduct = () => {
     formData.append("unit", unit);
     formData.append("type", type);
     formData.append("status", status);
-    formData.append("images", images);
+    formData.append("image", images);
     formData.append("category", category);
     formData.append("brand", brand);
 

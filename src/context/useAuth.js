@@ -13,9 +13,9 @@ const AuthProvider = ({ children }) => {
       setAuth({ ...auth, user: parsed.user, token: parsed.token });
     }
   }, []);
-  
-  // axios.defaults.baseURL = process.env.REACT_APP_API;
-  // axios.defaults.headers.common["Authorization"] = "Bearer " + auth?.token;
+
+  axios.defaults.baseURL = process.env.REACT_APP_API;
+  axios.defaults.headers.common["Authorization"] = "Bearer " + auth?.token;
 
   return (
     <AuthContext.Provider value={[auth, setAuth]}>

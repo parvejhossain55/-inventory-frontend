@@ -13,7 +13,7 @@ const FeatureProduct = ({ products }) => {
           </div>
 
           <div className="row">
-            {products.map((product, i) => (
+            {products?.map((product, i) => (
               <ProductCard product={product} key={i} />
             ))}
           </div>

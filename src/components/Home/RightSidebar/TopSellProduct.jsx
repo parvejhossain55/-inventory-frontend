@@ -10,7 +10,7 @@ const TopSellProduct = ({ products }) => {
             <h5>Top Selling</h5>
           </div>
           <div className="row">
-            {products.map((product, i) => (
+            {products?.map((product, i) => (
               <ProductCard key={i} product={product}/>
             ))}
           </div>

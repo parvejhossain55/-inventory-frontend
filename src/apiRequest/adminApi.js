@@ -42,8 +42,11 @@ export const brandCreate = async (brand) => {
   return data;
 };
 
-export const deleteBrnad = async (id) => {
-  const { data } = await axios.delete(`/brand/${id}`, headers);
+export const deleteBrnad = async ({ brandId, public_id }) => {
+  const { data } = await axios.delete(
+    `/brand/${brandId}?public_id=${public_id}`,
+    headers
+  );
   toast.success(data.message);
 };
 

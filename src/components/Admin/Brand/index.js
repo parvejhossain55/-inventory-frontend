@@ -12,7 +12,7 @@ import slugify from "slugify";
 const CreateBrand = () => {
   const [brands, setBrands] = useState(null);
   const [update, setUpdate] = useState(false);
-  const [oldData, setOldData] = useState({ id: "", image: "" });
+  const [oldData, setOldData] = useState({ id: "", image: {} });
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
 
@@ -33,15 +33,18 @@ const CreateBrand = () => {
 
     await brandCreate(formData);
     await loadBrands();
+    setName("");
+    setImage("");
   };
 
-  const handleDelete = async (id) => {
-    await deleteBrnad(id);
+  const handleDelete = async (brand) => {
+    await deleteBrnad(brand);
     loadBrands();
   };
 
   const updateBrand = (brandId) => {
     const [data] = brands.filter((brand) => brand._id === brandId);
+    // console.log("brand data ", data);
 
     setOldData({ ...oldData, id: data._id, image: data.image });
     setName(data.name);
@@ -51,11 +54,10 @@ const CreateBrand = () => {
   const handleUpdate = async () => {
     const formData = new FormData();
     formData.append("name", name);
+    formData.append("slug", slugify(name));
+    formData.append("public_id", oldData.image.public_id);
 
-    if (image) {
-      formData.append("image", image);
-      formData.append("old_img", oldData.image);
-    }
+    image && formData.append("image", image);
 
     await brandUpdate(oldData.id, formData);
 
@@ -95,7 +97,7 @@ const CreateBrand = () => {
                         <td style={{ verticalAlign: "middle" }}>{i + 1}</td>
                         <td>
                           <img
-                            src={`${process.env.REACT_APP_IMAGE_URL}/${brand.image}`}
+                            src={brand.image.secure_url}
                             width="50px"
                             height="50px"
                           />
@@ -113,7 +115,12 @@ const CreateBrand = () => {
                               <MdOutlineEditOff />
                             </button>
                             <button
-                              onClick={() => handleDelete(brand._id)}
+                              onClick={() =>
+                                handleDelete({
+                                  brandId: brand._id,
+                                  public_id: oldData.image.public_id,
+                                })
+                              }
                               class="btn btn-outline-danger"
                             >
                               <MdOutlineDeleteSweep />
@@ -223,7 +230,7 @@ const CreateBrand = () => {
                             ) : (
                               <div className="text-center">
                                 <img
-                                  src={`${process.env.REACT_APP_IMAGE_URL}/${oldData.image}`}
+                                  src={oldData.image.secure_url}
                                   alt="Product Photo"
                                   className="img img-responsive rounded "
                                   height="150px"

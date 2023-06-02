@@ -16,8 +16,8 @@ const ProductCard = ({ product, col = 3 }) => {
         <div class="product-grid">
           <div class="product-image">
             <Link to={`/product/${product.slug}`} class="image">
-              {product?.images && (
-                <img class="pic-1" src={`${process.env.REACT_APP_IMAGE_URL}/${product?.images[0]}`} />
+              {product?.image && (
+                <img class="pic-1" src={product?.image.secure_url} />
               )}
             </Link>
 

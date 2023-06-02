@@ -10,7 +10,8 @@ axios.defaults.baseURL = process.env.REACT_APP_API;
 const headers = { headers: { Authorization: "Bearer " + token } };
 // axios.defaults.headers.common["Authorization"] = "Bearer " + token;
 
-console.log("headers", headers);
+// console.log("headers", headers);
+console.log("token", token);
 
 // Check User Authentication
 export const checkAuth = async () => {

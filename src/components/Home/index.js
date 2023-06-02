@@ -33,13 +33,13 @@ const Home = () => {
             <div className="col-lg-3 col-md-4">
               <div className="row">
                 <BestDeals
-                  products={data.filter(
+                  products={data?.filter(
                     (product) => product.type === "bestdeal"
                   )}
                 />
                 <HotOffer />
                 <TopRated
-                  products={data.filter(
+                  products={data?.filter(
                     (product) => product.type === "toprated"
                   )}
                 />
@@ -49,12 +49,12 @@ const Home = () => {
             <div className="col-lg-9 col-md-8">
               <div className="row">
                 <FeatureProduct
-                  products={data.filter(
+                  products={data?.filter(
                     (product) => product.type === "feature"
                   )}
                 />
                 <NewProduct
-                  products={data.filter((product) => product.type === "new")}
+                  products={data?.filter((product) => product.type === "new")}
                 />
                 <TopSellProduct
                   products={data?.filter(

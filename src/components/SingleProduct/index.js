@@ -5,9 +5,8 @@ import tab1 from "../../assets/images/tab-1.png";
 import { useGlobalContext } from "../../context/gobalContext";
 import useApi from "../../hooks/useApi";
 import ProductCard from "../Card/ProductCard";
-import test1 from '../../assets/images/testimonial-1.jpg'
-import test2 from '../../assets/images/testimonial-2.jpg'
-
+import test1 from "../../assets/images/testimonial-1.jpg";
+import test2 from "../../assets/images/testimonial-2.jpg";
 
 const SingleProduct = () => {
   const [quantity, setQuantity] = useState(1);
@@ -38,7 +37,7 @@ const SingleProduct = () => {
                         role="tabpanel"
                       >
                         <img
-                          src={`${process.env.REACT_APP_IMAGE_URL}/${product?.images[0]}`}
+                          src={product?.image.secure_url}
                           alt={product.title}
                           className="img-fluid"
                         />

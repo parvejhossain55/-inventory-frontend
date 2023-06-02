@@ -49,7 +49,7 @@ const TopRated = ({ products }) => {
             <h6>Top Rated</h6>
           </div>
           <div className="rt-slider owl-carousel">
-            {products.map((product, i) => (
+            {products?.map((product, i) => (
               <ProductCard key={i} product={product} />
             ))}
           </div>

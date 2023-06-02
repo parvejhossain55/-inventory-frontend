@@ -38,13 +38,13 @@ const EditProduct = () => {
   const [type, setType] = useState("");
   const [status, setStatus] = useState("");
   const [images, setImages] = useState("");
-  const [oldImg, setOldImg] = useState("")
+  const [oldImg, setOldImg] = useState({ public_id: "", secure_url: "" });
   const [category, setCategory] = useState([]);
   const [brand, setBrand] = useState("");
 
   // product id
   const { slug } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // load all brands and category via hook
   const categories = useCategory();
@@ -66,7 +66,10 @@ const EditProduct = () => {
     setUnit(data.unit);
     setType(data.type);
     setStatus(data.status);
-    setOldImg(data.images[0])
+    setOldImg({
+      public_id: data.image.public_id,
+      secure_url: data.image.secure_url,
+    });
     setCategory(data.category);
     setBrand(data.brand);
   };
@@ -95,14 +98,15 @@ const EditProduct = () => {
     formData.append("unit", unit);
     formData.append("type", type);
     formData.append("status", status);
-    images && formData.append("images", images);
+    formData.append("public_id", oldImg.public_id);
+    images && formData.append("image", images);
     formData.append("category", category);
     formData.append("brand", brand);
 
     // const product = Object.fromEntries(formData)
     const product = await UpdateProduct(slugName, formData);
-    if(product) {
-      navigate("/dashboard/products")
+    if (product) {
+      navigate("/dashboard/products");
     }
   };
 
@@ -323,7 +327,7 @@ const EditProduct = () => {
                         <div class="form-group">
                           <div className="text-center">
                             <img
-                              src={`${process.env.REACT_APP_IMAGE_URL}/${oldImg}`}
+                              src={oldImg.secure_url}
                               alt="Product Photo"
                               className="img img-responsive"
                               height="150px"

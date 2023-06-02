@@ -52,7 +52,7 @@ const BestDeals = ({ products }) => {
             <h6>Best Deals</h6>
           </div>
           <div className="bt-body">
-            {products.map((product, i) => (
+            {products?.map((product, i) => (
               <ProductCard key={i} product={product} />
             ))}
           </div>

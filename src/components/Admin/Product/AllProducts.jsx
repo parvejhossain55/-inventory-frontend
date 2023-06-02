@@ -83,7 +83,7 @@ const AllProducts = () => {
                           <th style={{ width: "27.6px" }}>#</th>
                           <th style={{ width: "50.8px" }}>Image</th>
                           <th style={{ width: "244.8px" }}>Product</th>
-                          <th style={{ width: "93.8px" }}>Category</th>
+                          <th style={{ width: "120px" }}>Category</th>
                           <th style={{ width: "42.8px" }}>Price</th>
                           <th style={{ width: "60.8px" }}>Quantity</th>
                           <th style={{ width: "45.8px" }}>Status</th>
@@ -91,12 +91,12 @@ const AllProducts = () => {
                         </tr>
                       </thead>
                       <tbody className="text-center">
-                        {products.map((product) => (
+                        {products?.map((product) => (
                           <tr>
                             <td>1</td>
                             <td>
                               <img
-                                src={`${process.env.REACT_APP_IMAGE_URL}/${product.images[0]}`}
+                                src={product.image.secure_url}
                                 alt="contact-img"
                                 className="rounded-circle me-3"
                                 width={60}
@@ -108,7 +108,11 @@ const AllProducts = () => {
                                 {product.title}
                               </p>
                             </td>
-                            <td>{"product.category"}</td>
+                            <td>
+                              {product.category.map((category) => (
+                                <li>{category.name}</li>
+                              ))}
+                            </td>
                             <td>{product.price}</td>
 
                             <td>{product.quantity}</td>
