@@ -55,7 +55,7 @@ const Wishlist = () => {
                             <div className="t-img">
                               <Link to={`/product/${item.product.slug}`}>
                                 <img
-                                  src={`${process.env.REACT_APP_IMAGE_URL}/${item.product?.images[0]}`}
+                                  src={item.product?.image?.secure_url}
                                   width={100}
                                   height={100}
                                   alt={item.product.title}

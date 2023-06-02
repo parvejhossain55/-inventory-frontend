@@ -13,7 +13,7 @@ const Cart = () => {
   const [calculate, setCalculate] = useState({ shipping: 0, subtotal: 0 });
   const [coupon, setCoupon] = useState("");
   const { checkCountCart } = useGlobalContext();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadCartData();
@@ -40,7 +40,7 @@ const Cart = () => {
   const updateQuantity = async (quantity, itemId) => {
     await updateCartQuantity(quantity, itemId);
     await loadCartData();
-    checkCountCart()
+    checkCountCart();
   };
 
   const removeCartItem = async (itemId) => {
@@ -80,7 +80,7 @@ const Cart = () => {
                             <div className="t-img">
                               <Link to={`/product/${item.product.slug}`}>
                                 <img
-                                  src={`${process.env.REACT_APP_IMAGE_URL}/${item.product?.images[0]}`}
+                                  src={item.product?.image?.secure_url}
                                   alt={item.product.title}
                                   width={100}
                                   height={100}
@@ -96,13 +96,7 @@ const Cart = () => {
                             </div>
                           </td>
                           <td className="t-price">
-                            {
-                              <span
-                                className="taka"
-                              >
-                                ৳
-                              </span>
-                            }
+                            {<span className="taka">৳</span>}
                             {item.price}
                           </td>
                           <td class="t-qty">
@@ -135,13 +129,7 @@ const Cart = () => {
                             </div>
                           </td>
                           <td className="t-total">
-                            {
-                              <span
-                                className="taka"
-                              >
-                                ৳
-                              </span>
-                            }
+                            {<span className="taka">৳</span>}
                             {item.totalPrice}
                           </td>
                           <td className="t-rem">
@@ -195,10 +183,18 @@ const Cart = () => {
                       </li>
                     </ul>
                     <div className="cart-btns text-right">
-                      <button onClick={() => navigate("/shop")}  type="button" className="up-cart">
+                      <button
+                        onClick={() => navigate("/shop")}
+                        type="button"
+                        className="up-cart"
+                      >
                         Update Cart
                       </button>
-                      <button onClick={() => navigate("/checkout")} type="button" className="chq-out">
+                      <button
+                        onClick={() => navigate("/checkout")}
+                        type="button"
+                        className="chq-out"
+                      >
                         Checkout
                       </button>
                     </div>
