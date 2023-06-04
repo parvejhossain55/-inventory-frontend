@@ -2796,7 +2796,7 @@ textarea:focus {
 ======================================= */
 .product-area .bt-deal {
   border: 1px solid #e5e5e5;
-  padding: 20px 20px 0;
+  /* padding: 20px 20px 0; */
   margin-bottom: 30px;
 }
 
@@ -2819,6 +2819,10 @@ textarea:focus {
 }
 
 .product-area .bt-deal .bt-body .bt-items .bt-box {
+  margin-bottom: 20px;
+}
+
+.product-area .bt-deal .bt-body .bt-items .bt-box .content {
   margin-bottom: 20px;
 }
 
@@ -2869,7 +2873,7 @@ textarea:focus {
   color: #969696;
   margin-left: 5px;
   font-weight: normal;
-  text-decoration: line-through;
+  /* text-decoration: line-through; */
 }
 
 .product-area .bt-deal .bt-body .owl-nav div {

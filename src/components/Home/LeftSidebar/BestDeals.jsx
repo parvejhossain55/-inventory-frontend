@@ -1,13 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
   // console.log(product);
   return (
-    <div className="bt-items">
+    <div className="bt-items mb-4">
       <div className="bt-box d-flex">
         <div className="bt-img">
           <a href="#">
-            <img className="pic-1" src={product?.images[0]} />
+            <img className="pic-1" src={product?.image.secure_url} />
           </a>
         </div>
         <div className="bt-content">
@@ -34,7 +35,7 @@ const ProductCard = ({ product }) => {
           <ul className="list-unstyled list-inline price">
             <li className="list-inline-item">
               {<span style={{ fontSize: "16px", marginRight: "2px" }}>৳</span>}
-              {product.price}
+              {product.salePrice}
             </li>
           </ul>
         </div>
@@ -48,12 +49,14 @@ const BestDeals = ({ products }) => {
     <>
       <div className="col-md-12">
         <div className="bt-deal">
-          <div className="sec-title">
+          <div className="sec-title p-2">
             <h6>Best Deals</h6>
           </div>
-          <div className="bt-body">
+          <div className="bt-body pb-3">
             {products?.map((product, i) => (
-              <ProductCard key={i} product={product} />
+              <Link to={`/product/${product.slug}`} class="image">
+                <ProductCard key={i} product={product} />
+              </Link>
             ))}
           </div>
         </div>

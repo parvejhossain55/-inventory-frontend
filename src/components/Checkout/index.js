@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import sbar from "../../assets/images/sbar-1.png";
 import { checkAuth, checkoutOrder, loadCart } from "../../apiRequest";
 import { useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
 
 const Checkout = () => {
   const [cart, setCart] = useState([]);
@@ -39,6 +40,43 @@ const Checkout = () => {
     if (!ok) {
       navigate("/login");
     } else {
+      if (firstName === "") {
+        toast.error("First Name is required");
+        return;
+      }
+      if (lastName === "") {
+        toast.error("Last Name is required");
+        return;
+      }
+      if (email === "") {
+        toast.error("Email is required");
+        return;
+      }
+      if (phone === "") {
+        toast.error("Phone is required");
+        return;
+      }
+      if (address === "") {
+        toast.error("Address is required");
+        return;
+      }
+      if (country === "") {
+        toast.error("Country is required");
+        return;
+      }
+      if (city === "") {
+        toast.error("Country is required");
+        return;
+      }
+      if (state === "") {
+        toast.error("Country is required");
+        return;
+      }
+      if (zip === "") {
+        toast.error("Country is required");
+        return;
+      }
+
       setLoading(true);
       const product_name = cart.reduce(
         (name, product) => name + product.product.title + ", ",
@@ -59,6 +97,8 @@ const Checkout = () => {
       };
       const { url } = await checkoutOrder(orderData);
       setLoading(false);
+
+      console.log("url ", url);
 
       window.location.replace(url);
     }
@@ -190,31 +230,43 @@ const Checkout = () => {
                           Product <span>Total</span>
                         </li>
                         {cart.map((product, i) => (
-                          <li
-                            key={i}
-                            className="d-flex justify-content-between"
+                          <Link
+                            to={`/product/${product.product.slug}`}
+                            class="image"
                           >
-                            <div className="pro">
-                              <img src={sbar} alt="" />
-                              <p>{product.product.title}</p>
-                              <span>
-                                {product.quantity} X{" "}
-                                <span>৳{product.price}</span>
-                              </span>
-                            </div>
-                            <div className="prc">
-                              {/* <p>$49.00</p> */}
-                              <p>৳{product.totalPrice}</p>
-                            </div>
-                          </li>
+                            <li
+                              key={i}
+                              className="d-flex justify-content-between"
+                            >
+                              <div className="pro">
+                                <img
+                                  src={product.product.image.secure_url}
+                                  alt=""
+                                />
+                                <p>{product.product.title}</p>
+                                <span>
+                                  {product.quantity} X{" "}
+                                  <span>৳{product.price}</span>
+                                </span>
+                              </div>
+                              <div className="prc">
+                                {/* <p>$49.00</p> */}
+                                <p>৳{product.totalPrice}</p>
+                              </div>
+                            </li>
+                          </Link>
                         ))}
+                        {cart.length > 0 && (
+                          <>
+                            <li>
+                              Sub Total <span>৳{subtotal}</span>
+                            </li>
+                            <li>
+                              Shipping & Tax <span>৳{shipping}</span>
+                            </li>
+                          </>
+                        )}
 
-                        <li>
-                          Sub Total <span>৳{subtotal}</span>
-                        </li>
-                        <li>
-                          Shipping & Tax <span>৳{shipping}</span>
-                        </li>
                         <li>
                           Grand Total <span>৳{subtotal + shipping}</span>
                         </li>

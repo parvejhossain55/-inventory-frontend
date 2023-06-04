@@ -14,7 +14,7 @@ const Shop = () => {
   const [state, dispatch] = useReducer(reducer, {
     category: [],
     brand: [],
-    price: { min: 1, max: 2000 },
+    price: { min: 1, max: 6000 },
     sortBy: "",
     perPage: 12,
   });
@@ -22,6 +22,17 @@ const Shop = () => {
   useEffect(() => {
     handleFilter();
   }, [state, currentPage, totalPages]);
+
+  async function handleFilter() {
+    setLoading(true);
+    const { products, totalPages } = await loadFilterProduct(
+      currentPage,
+      state
+    );
+    setProducts(products);
+    setTotalPage(totalPages);
+    setLoading(false);
+  }
 
   function handleCategory(e, catId) {
     dispatch({
@@ -51,20 +62,11 @@ const Shop = () => {
     dispatch({ type: "handlePerPage", perPage: parseInt(perPage) });
   }
 
-  async function handleFilter() {
-    setLoading(true);
-    const { products, totalPages } = await loadFilterProduct(currentPage, state)
-    setProducts(products);
-    setTotalPage(totalPages);
-    setLoading(false);
-  }
-
   function handlePagination({ selected }) {
     setCurrentPage(selected + 1);
   }
 
   function handleReset() {}
-
 
   return (
     <>

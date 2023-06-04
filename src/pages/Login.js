@@ -28,8 +28,8 @@ const Login = () => {
         setAuth({ ...auth, user: data.user, token: data.token });
 
         data?.user?.role === "customer"
-          ? navigate(`/user`)
-          : navigate(`/dashboard`);
+          ? (window.location.href = "/user")
+          : (window.location.href = "/dashboard");
 
         toast.success(data.message);
       }

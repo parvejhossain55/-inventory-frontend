@@ -7,11 +7,11 @@ const AllCategories = () => {
 
   return (
     <>
-      <div class="menu-widget">
+      <div className="menu-widget">
         <p>
-          <i class="fa fa-bars"></i>All Categories
+          <i className="fa fa-bars"></i>All Categories
         </p>
-        <ul class="list-unstyled">
+        <ul className="list-unstyled">
           {categories.map((category, i) => (
             <li key={i}>
               <Link to={`category/${category.slug}`}>{category.name}</Link>

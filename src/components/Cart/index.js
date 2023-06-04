@@ -16,7 +16,10 @@ const Cart = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    loadCartData();
+    const data = localStorage.getItem("auth");
+    if (data) {
+      loadCartData();
+    }
   }, []);
 
   const loadCartData = async () => {

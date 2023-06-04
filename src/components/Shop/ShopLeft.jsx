@@ -7,7 +7,7 @@ import "react-input-range/lib/css/index.css";
 const ShopLeft = ({ handleCategory, handleBrand, handlePrice }) => {
   const categories = useCategory();
   const brands = useBrand();
-  const [price, setPrice] = useState({ min: 1, max: 2000 });
+  const [price, setPrice] = useState({ min: 1, max: 6000 });
 
   return (
     <>

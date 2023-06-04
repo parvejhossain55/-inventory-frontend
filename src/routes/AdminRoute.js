@@ -28,7 +28,7 @@ const AdminRoute = () => {
   const [auth, setAuth] = useAuth();
 
   useEffect(() => {
-    console.log("auth in admin", auth);
+    // console.log("auth in admin", auth);
     if (auth?.token) checkAdminAuth();
   }, [auth?.token]);
 
@@ -38,8 +38,8 @@ const AdminRoute = () => {
   };
 
   const logout = async () => {
-    localStorage.removeItem("auth");
-    window.location.replace("/login");
+    localStorage.clear();
+    window.location.replace("/");
   };
 
   return ok ? (

@@ -7,6 +7,8 @@ import useApi from "../../hooks/useApi";
 import ProductCard from "../Card/ProductCard";
 import test1 from "../../assets/images/testimonial-1.jpg";
 import test2 from "../../assets/images/testimonial-2.jpg";
+import HtmlRenderer from "../../helper/HtmlRenderer";
+
 
 const SingleProduct = () => {
   const [quantity, setQuantity] = useState(1);
@@ -305,7 +307,7 @@ const SingleProduct = () => {
                         role="tabpanel"
                         aria-labelledby="pills-home-tab"
                       >
-                        {product.description}
+                        {<HtmlRenderer htmlString={product.description}/>}
                       </div>
                       <div
                         class="tab-pane fade"

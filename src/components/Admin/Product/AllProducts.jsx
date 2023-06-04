@@ -54,7 +54,9 @@ const AllProducts = () => {
                         Display{" "}
                         <select className="form-select form-select-sm ms-1 me-1">
                           <option value="10">10</option>
-                          <option value="25">25</option>
+                          <option selected value="25">
+                            25
+                          </option>
                           <option value="50">50</option>
                           <option value="100">100</option>
                           <option value="-1">All</option>
@@ -91,9 +93,9 @@ const AllProducts = () => {
                         </tr>
                       </thead>
                       <tbody className="text-center">
-                        {products?.map((product) => (
-                          <tr>
-                            <td>1</td>
+                        {products?.map((product, i) => (
+                          <tr key={i}>
+                            <td>{i + 1}</td>
                             <td>
                               <img
                                 src={product.image.secure_url}

@@ -10,8 +10,8 @@ const useApi = (url, state = []) => {
   // set axios default value
   const token = getToken();
 
-  axios.defaults.baseURL = process.env.REACT_APP_API;
-  const headers = { headers: { Authorization: "Bearer " + token } };
+  // axios.defaults.baseURL = process.env.REACT_APP_API;
+  // const headers = { headers: { Authorization: "Bearer " + token } };
 
   let dependency = state.length > 0 ? [url, ...state] : [url];
 
@@ -22,7 +22,8 @@ const useApi = (url, state = []) => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get(url, headers);
+      const { data } = await axios.get(url);
+      // const { data } = await axios.get(url, headers);
       setData(data);
       setError(null);
     } catch (error) {

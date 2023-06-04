@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { checkAuth } from "../../apiRequest";
 
 const TopBar = () => {
   const [login, setLogin] = useState(false);
+  const naviagate = useNavigate();
 
   useEffect(() => {
-    checkLogin();
+    const data = localStorage.getItem("auth");
+    if (data) {
+      checkLogin();
+    }
   });
 
   const checkLogin = async () => {
@@ -15,7 +19,7 @@ const TopBar = () => {
   };
 
   const logout = async () => {
-    localStorage.removeItem("auth");
+    localStorage.clear();
     setLogin(false);
   };
 
@@ -26,7 +30,7 @@ const TopBar = () => {
           <div className="row">
             <div className="col-lg-4 col-md-3">
               <div className="top-left d-flex">
-                <div class="call-us">
+                <div className="call-us">
                   <p>
                     <i
                       className="fa fa-regular fa-phone"
@@ -42,19 +46,19 @@ const TopBar = () => {
                 <ul className="list-unstyled list-inline">
                   <li className="list-inline-item">
                     <Link to="track-order">
-                      <i class="fa fa-light fa-truck"></i>
+                      <i className="fa fa-light fa-truck"></i>
                       Track My Order
                     </Link>
                   </li>
                   <li className="list-inline-item">
                     <Link to="wishlist">
-                      <i class="fa fa-light fa-heart"></i>
+                      <i className="fa fa-light fa-heart"></i>
                       Wishlist
                     </Link>
                   </li>
                   <li className="list-inline-item">
                     <Link to="checkout">
-                      <i class="fa fa-light fa-share"></i>
+                      <i className="fa fa-light fa-share"></i>
                       Checkout
                     </Link>
                   </li>
@@ -63,7 +67,7 @@ const TopBar = () => {
                       <li className="list-inline-item">
                         <Link to="login">
                           <i
-                            class="fa fa-light fa-lock"
+                            className="fa fa-light fa-lock"
                             style={{ fontSize: "16px" }}
                           ></i>
                           My Account
@@ -71,19 +75,31 @@ const TopBar = () => {
                       </li>
                       <li className="list-inline-item">
                         <Link to="register">
-                          <i class="fa fa-light fa-user"></i>
+                          <i className="fa fa-light fa-user"></i>
                           Register
                         </Link>
                       </li>
                     </>
                   )}
                   {login && (
-                    <li className="list-inline-item">
-                      <Link onClick={logout}>
-                        <i class="fa fa-light fa-sign-out"></i>
-                        Logout
-                      </Link>
-                    </li>
+                    <>
+                      <li className="list-inline-item">
+                        <Link
+                          onClick={() => {
+                            window.location.replace(`/dashboard`);
+                          }}
+                        >
+                          <i className="fa fa-light fa-dashboard"></i>
+                          Dashboard
+                        </Link>
+                      </li>
+                      <li className="list-inline-item">
+                        <Link onClick={logout}>
+                          <i className="fa fa-light fa-sign-out"></i>
+                          Logout
+                        </Link>
+                      </li>
+                    </>
                   )}
                 </ul>
               </div>

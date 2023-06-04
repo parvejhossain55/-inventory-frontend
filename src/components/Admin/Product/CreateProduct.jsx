@@ -6,6 +6,7 @@ import useCategory from "../../../hooks/useCategory";
 import useBrand from "../../../hooks/useBrand";
 import { createProduct } from "../../../apiRequest/adminApi";
 import slugify from "slugify";
+import { useNavigate } from "react-router-dom";
 
 const createOption = (label) => ({
   label,
@@ -37,6 +38,8 @@ const CreateProduct = () => {
   const [images, setImages] = useState("");
   const [category, setCategory] = useState([]);
   const [brand, setBrand] = useState("");
+
+  const navigate = useNavigate();
 
   // load all brands and category via hook
   const categories = useCategory();
@@ -86,6 +89,7 @@ const CreateProduct = () => {
       setImages("");
       setCategory([]);
       setBrand("");
+      navigate("/dashboard/products");
     }
   };
 
@@ -298,6 +302,7 @@ const CreateProduct = () => {
                           <option value="new">New</option>
                           <option value="feature">Feature</option>
                           <option value="sale">Sale</option>
+                          <option value="bestdeal">Best Deals</option>
                         </select>
                       </div>
                     </div>

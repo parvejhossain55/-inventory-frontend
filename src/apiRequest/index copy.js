@@ -4,12 +4,13 @@ import { getToken } from "../helper/helper";
 
 // set axios default value
 // axios.defaults.baseURL = process.env.REACT_APP_API;
-// const headers = { headers: { Authorization: "Bearer " + getToken() } };
+const headers = { headers: { Authorization: "Bearer " + getToken() } };
+// axios.defaults.headers.common["Authorization"] = "Bearer " + token;
 
 // Check User Authentication
 export const checkAuth = async () => {
   try {
-    const { data } = await axios.get(`/auth-check`);
+    const { data } = await axios.get(`/auth-check`, headers);
     return data;
   } catch (error) {
     console.error(error);
@@ -18,15 +19,15 @@ export const checkAuth = async () => {
 
 // Check Admin Authentication
 export const checkAuthAdmin = async () => {
-  const { data } = await axios.get(`/admin-check`);
-  // console.log("headers ");
+  const { data } = await axios.get(`/admin-check`, headers);
+  console.log("headers ", headers);
   console.log("data ", data);
   return data;
 };
 
 // Get User Profile
 export const getUser = async () => {
-  const { data } = await axios.get(`/get-user`);
+  const { data } = await axios.get(`/get-user`, headers);
   // console.log('user', data)
   return data;
 };
@@ -38,11 +39,11 @@ export const updateProfile = async (data) => {
       if (data.newPass !== data.confPass) {
         toast.error("Password Does not Match");
       } else {
-        await axios.put(`/update-profile`, data);
+        await axios.put(`/update-profile`, data, headers);
         toast.success("Profile Successfully Updated");
       }
     } else {
-      await axios.put(`/update-profile`, data);
+      await axios.put(`/update-profile`, data, headers);
       toast.success("Profile Successfully Updated");
     }
   } catch (error) {
@@ -115,7 +116,7 @@ export const loadProductBySlug = async (slug) => {
 // Load User Cart Item
 export const loadCart = async () => {
   try {
-    const { data } = await axios.get("/cart");
+    const { data } = await axios.get("/cart", headers);
     return data;
   } catch (error) {
     console.log(error);
@@ -125,7 +126,11 @@ export const loadCart = async () => {
 // Add Item in User Cart
 export const addToCart = async (productId, quantity = 1) => {
   try {
-    const { data } = await axios.post("/cart", { productId, quantity });
+    const { data } = await axios.post(
+      "/cart",
+      { productId, quantity },
+      headers
+    );
 
     const cart = JSON.stringify(data.products);
     localStorage.setItem("cart", cart);
@@ -139,7 +144,7 @@ export const addToCart = async (productId, quantity = 1) => {
 
 // Update User Cart Quantity
 export const updateCartQuantity = async (quantity, itemId) => {
-  const { data } = await axios.put("/cart", { quantity, itemId });
+  const { data } = await axios.put("/cart", { quantity, itemId }, headers);
 
   const cart = JSON.stringify(data.products);
   localStorage.setItem("cart", cart);
@@ -150,7 +155,7 @@ export const updateCartQuantity = async (quantity, itemId) => {
 // Remove User Cart Item
 export const removeCartItemData = async (itemId) => {
   try {
-    const { data } = await axios.delete(`/cart/${itemId}`);
+    const { data } = await axios.delete(`/cart/${itemId}`, headers);
 
     const cart = JSON.stringify(data.products);
     localStorage.setItem("cart", cart);
@@ -165,7 +170,7 @@ export const removeCartItemData = async (itemId) => {
 // Add Item to User Wishlist
 export const addToWishlist = async (productId) => {
   try {
-    const { data } = await axios.post("/wishlist", { productId });
+    const { data } = await axios.post("/wishlist", { productId }, headers);
     toast.success(data.message);
   } catch (error) {
     console.log(error);
@@ -176,19 +181,20 @@ export const addToWishlist = async (productId) => {
 // Load User Wishlist
 export const loadWishlistData = async () => {
   try {
-    console.log("headers ");
+    console.log("headers ", headers);
 
-    const { data } = await axios.get("/wishlist");
+    const { data } = await axios.get("/wishlist", headers);
     return data;
   } catch (error) {
     console.log(error);
+    toast.error("Wishlist Data Load Error");
   }
 };
 
 // Remove User Wishlist
 export const removeWishlistData = async (productId) => {
   try {
-    await axios.delete(`/wishlist/${productId}`);
+    await axios.delete(`/wishlist/${productId}`, headers);
     toast.error("Item remove from wishlist");
   } catch (error) {
     console.log(error);
@@ -199,7 +205,7 @@ export const removeWishlistData = async (productId) => {
 // Apply Coupon Code
 export const applyCouponCode = async (coupon) => {
   try {
-    const { data } = await axios.get(`/coupons/${coupon}`);
+    const { data } = await axios.get(`/coupons/${coupon}`, headers);
     toast.info(data.message);
   } catch (error) {
     console.log(error);
@@ -209,7 +215,7 @@ export const applyCouponCode = async (coupon) => {
 
 // place order
 export const checkoutOrder = async (order) => {
-  const { data } = await axios.post("/cart/checkout", order);
+  const { data } = await axios.post("/cart/checkout", order, headers);
   return data;
 };
 

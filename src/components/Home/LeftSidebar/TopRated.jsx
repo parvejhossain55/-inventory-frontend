@@ -7,7 +7,7 @@ const ProductCard = ({ product }) => {
       <div className="rt-box d-flex">
         <div className="rt-img">
           <a href="#">
-            <img src={product.images[0]} alt="" />
+            <img src={product.image.secure_url} alt="" />
           </a>
         </div>
         <div className="rt-content">

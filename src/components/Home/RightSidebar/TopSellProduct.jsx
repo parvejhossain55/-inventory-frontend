@@ -11,7 +11,7 @@ const TopSellProduct = ({ products }) => {
           </div>
           <div className="row">
             {products?.map((product, i) => (
-              <ProductCard key={i} product={product}/>
+              <ProductCard key={i} product={product} />
             ))}
           </div>
         </div>

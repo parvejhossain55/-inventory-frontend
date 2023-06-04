@@ -38,11 +38,11 @@ const Home = () => {
                   )}
                 />
                 <HotOffer />
-                <TopRated
+                {/* <TopRated
                   products={data?.filter(
                     (product) => product.type === "toprated"
                   )}
-                />
+                /> */}
                 <Newsletter />
               </div>
             </div>
@@ -57,9 +57,7 @@ const Home = () => {
                   products={data?.filter((product) => product.type === "new")}
                 />
                 <TopSellProduct
-                  products={data?.filter(
-                    (product) => product.type === "topselling"
-                  )}
+                  products={data?.filter((product) => product.type === "sale")}
                 />
               </div>
             </div>
