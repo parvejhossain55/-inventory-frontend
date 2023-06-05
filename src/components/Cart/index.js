@@ -7,6 +7,7 @@ import {
   updateCartQuantity,
 } from "../../apiRequest";
 import { useGlobalContext } from "../../context/gobalContext";
+import { getToken } from "../../helper/helper";
 
 const Cart = () => {
   const [cart, setCart] = useState([]);
@@ -16,8 +17,8 @@ const Cart = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const data = localStorage.getItem("auth");
-    if (data) {
+    const token = getToken();
+    if (token) {
       loadCartData();
     }
   }, []);

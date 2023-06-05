@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState, createContext } from "react";
 import { loadCart } from "../apiRequest";
+import { getToken } from "../helper/helper";
 
 const GlobalContext = createContext();
 
@@ -11,10 +12,13 @@ const GlobalContextProvider = ({ children }) => {
   }, []);
 
   const checkCountCart = async () => {
-    const carts = await loadCart();
-    setCountCart(
-      carts?.products?.reduce((acc, product) => acc + product.quantity, 0)
-    );
+    const token = getToken();
+    if (token) {
+      const carts = await loadCart();
+      setCountCart(
+        carts?.products?.reduce((acc, product) => acc + product.quantity, 0)
+      );
+    }
   };
 
   return (
