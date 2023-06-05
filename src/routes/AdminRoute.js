@@ -5,6 +5,7 @@ import {
   getToken,
   showProfileDropdown,
   checkMenuDropdown,
+  Logout,
 } from "../helper/helper";
 import logo from "../assets/admin/img/AdminLTELogo.png";
 import userImg from "../assets/admin/img/user1-128x128.jpg";
@@ -140,7 +141,7 @@ const AdminRoute = () => {
                   <i className="fas fa-user mr-2"></i> Profile
                 </Link>
                 <div className="dropdown-divider"></div>
-                <Link onClick={logout} className="dropdown-item">
+                <Link onClick={() => Logout()} className="dropdown-item">
                   <i className="fa fa-sign-out mr-2"></i>
                   Logout
                 </Link>
@@ -267,7 +268,7 @@ const AdminRoute = () => {
                   }}
                 />
                 <li className="nav-item">
-                  <a onClick={() => console.log("logout")} className="nav-link">
+                  <a onClick={() => Logout()} className="nav-link">
                     <i className="nav-icon fa fa-sign-out"></i>
                     <p>Logout</p>
                   </a>

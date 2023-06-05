@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { checkAuth } from "../../apiRequest";
+import { Logout } from "../../helper/helper";
 
 const TopBar = () => {
   const [login, setLogin] = useState(false);
@@ -19,7 +20,7 @@ const TopBar = () => {
   };
 
   const logout = async () => {
-    localStorage.clear();
+    Logout();
     setLogin(false);
   };
 

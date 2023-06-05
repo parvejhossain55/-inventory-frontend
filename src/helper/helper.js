@@ -29,6 +29,11 @@ class MyFunctions {
     const data = JSON.parse(auth);
     return data?.token;
   }
+  // Session Helper
+  Logout = () => {
+    localStorage.clear();
+    window.location.href = "/";
+  };
 }
 
 // function checkMenuDropdown(e) {
@@ -59,5 +64,5 @@ class MyFunctions {
 //   return data?.token;
 // };
 
-export const { checkMenuDropdown, showProfileDropdown, getToken } =
+export const { checkMenuDropdown, showProfileDropdown, getToken, Logout } =
   new MyFunctions();
