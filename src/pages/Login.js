@@ -55,7 +55,7 @@ const Login = () => {
                   quo perferendis id aspernatur neque provident quas, quidem
                   libero veritatis voluptatum illum!
                 </p>
-                <a href="#">Create an Account</a>
+                <Link to="/register">Create an Account</Link>
               </div>
             </div>
             <div className="col-md-6">
