@@ -1,11 +1,27 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { addToCart, addToWishlist } from "../../apiRequest";
 import { useGlobalContext } from "../../context/gobalContext";
+import { toast } from "react-toastify";
+import { getToken } from "../../helper/helper";
 
 const ProductCard = ({ product, col = 3 }) => {
   const { checkCountCart } = useGlobalContext();
 
+  const addWishlist = async (productId) => {
+    const token = getToken()
+    if (!token) {
+      toast.error("Can't add wishlist without login");
+      return;
+    }
+    await addToWishlist(productId);
+  };
+
   const addCartItem = async (productId) => {
+    const token = getToken()
+    if (!token) {
+      toast.error("Can't add cart without login");
+      return;
+    }
     await addToCart(productId);
     checkCountCart();
   };
@@ -27,7 +43,7 @@ const ProductCard = ({ product, col = 3 }) => {
               ))}
             <ul class="product-links">
               <li>
-                <Link onClick={() => addToWishlist(product._id)}>
+                <Link onClick={() => addWishlist(product._id)}>
                   <i class="fa fa-heart"></i>
                 </Link>
               </li>
